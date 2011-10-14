@@ -1,0 +1,148 @@
+$theme-name: 'newspaper';
+$base-color: #333;
+$base-light-color: #fff;
+$base-dark-color: #999;
+$base-highlight-color: #efefef;
+$base-bright-color: #666;
+
+// custom
+$gloss-grid-row-selected-background-color: $base-highlight-color;
+$gloss-grid-row-selected-border-color: #fff;
+$gloss-grid-row-over-background-color: #f1f1f1;
+$gloss-grid-row-over-border-color: #dadada;
+$gloss-scrollbar-border-color: #999;
+$gloss-scrollbar-background-color: #ccc;
+$gloss-body-table-td-background-start-color: #f6f8f9;
+$gloss-body-table-td-background-end-color: #E9E8F4;
+$gloss-body-table-th-background-color: $base-bright-color;
+$gloss-body-h1-color: $base-highlight-color;
+$gloss-body-h1-background-color: #333333;
+$gloss-body-a-color: $base-bright-color;
+$gloss-body-a-hover-color: $base-highlight-color;
+$gloss-body-a-hover-background-color: #333;
+$gloss-body-pre-background-color: $base-highlight-color;
+$gloss-body-pre-border-color: #bbb;
+$gloss-body-pre-hover-background-color: $base-highlight-color;
+$gloss-comment-background-color: $base-highlight-color;
+$gloss-comment-a-color: $base-bright-color;
+$gloss-comment-border-color: #BBB;
+$gloss-note-background-color: #e5e5e5;
+$gloss-note-border-color: #dddddd;
+
+//panel
+$panel-header-background-gradient: color-stops($base-dark-color, #666);
+$panel-header-background-color: $base_dark_color;
+$panel-border-color: $base-dark-color;
+$panel-header-color: $base-light-color;
+
+$panel-frame-background-color: #fafafa;
+
+//window
+$window-background-color: $base-color;
+$window-header-color: $base-light-color;
+$window-body-color:$base-light-color;
+
+//menu
+$menu-item-active-background-color: darken(#f3f3f3, 5);
+$menu-item-active-border-color: #9d9d9d;
+
+//datepicker
+$datepicker-header-background-color: #6f6f6f;
+$datepicker-border-color: #585858;
+$datepicker-th-background-color: #e9e9e9;
+$datepicker-selected-item-background-color: #d8d8d8;
+$datepicker-item-hover-background-color: transparent;
+
+//progress bar
+$progress-border-color: #8e8e8e;
+$progress-background-color: #f1f1f1;
+$progress-bar-background-color: #ababab;
+
+//tips
+$tip-base-color: $base-color;
+$tip-body-color: $base-light-color;
+
+//grid
+$grid-header-over-border-color: darken($base-color, 3);
+$grid-header-over-background-gradient: color-stops(#dfdfdf, #eaeaea);
+
+//toolbar
+$toolbar-background-gradient: color-stops(#e6e6e6, #efefef);
+$toolbar-separator-color: #aca899;
+$toolbar-text-color: #000;
+
+//form
+$fieldset-header-color: #333;
+
+$boundlist-border-color: #b5b8c8;
+
+//acordion
+$accordion-header-background-color: $base-color;
+$accordion-header-color: $base-light-color;
+
+//tabs
+$tab-base-color: #eaeaea;
+$tab-color-active: #333333;
+
+$tab-background-gradient: color-stops(#dcdcdc, #eaeaea);
+$tab-background-gradient-over: 'tab-over' !default;
+$tab-background-gradient-active: color-stops(#ffffff, #eaeaea);
+$tab-background-gradient-disabled: 'tab-disabled' !default;
+
+//buttons
+$button-default-base-color: #f8f8f8;
+$button-default-base-color-over: #f3f3f3;
+$button-default-base-color-focus: $button-default-base-color-over;
+$button-default-base-color-pressed: #d6d6d6;
+$button-default-base-color-disabled: adjust-color($base-color, $hue: 0deg, $saturation: -55.556%, $lightness: 12.745%) !default; //F7F7F7
+
+$button-default-border-color: #bbbbbb;
+$button-default-border-color-over: #9d9d9d;
+$button-default-border-color-focus: $button-default-border-color-over;
+$button-default-border-color-pressed: $button-default-border-color-over;
+$button-default-border-color-disabled: adjust-color($button-default-base-color-disabled, $hue: 0deg, $saturation: 0%, $lightness: -8.627%) !default;
+
+$button-default-background-gradient: 'matte';
+$button-default-background-gradient-over: 'matte';
+$button-default-background-gradient-focus: 'matte';
+$button-default-background-gradient-pressed: 'matte-reverse';
+$button-default-background-gradient-disabled: 'matte';
+
+$button-default-background-gradient-color-stops: null;
+$button-default-background-gradient-color-stops-over: null;
+$button-default-background-gradient-color-stops-focus: null;
+$button-default-background-gradient-color-stops-pressed: null;
+$button-default-background-gradient-color-stops-disabled: null;
+
+
+$button-toolbar-base-color: $button-default-base-color;
+
+$button-toolbar-border-color: transparent !default;
+$button-toolbar-border-color-over: $button-default-border-color-over;
+$button-toolbar-border-color-focus: $button-default-border-color-focus;
+$button-toolbar-border-color-pressed: $button-default-border-color-pressed;
+$button-toolbar-border-color-disabled: $button-default-border-color-disabled;
+
+$button-toolbar-background-color: transparent !default;
+$button-toolbar-background-color-over: $button-default-base-color-over;
+$button-toolbar-background-color-focus: $button-default-base-color-focus;
+$button-toolbar-background-color-pressed: $button-default-base-color-pressed;
+$button-toolbar-background-color-disabled: transparent;
+
+$button-toolbar-background-gradient: null;
+$button-toolbar-background-gradient-over: 'matte';
+$button-toolbar-background-gradient-focus: 'matte';
+$button-toolbar-background-gradient-pressed: 'matte-reverse';
+$button-toolbar-background-gradient-disabled: null;
+
+$button-toolbar-background-gradient-color-stops: null;
+$button-toolbar-background-gradient-color-stops-over: null;
+$button-toolbar-background-gradient-color-stops-focus: null;
+$button-toolbar-background-gradient-color-stops-pressed: null;
+$button-toolbar-background-gradient-color-stops-disabled: null;
+
+@import 'compass';
+@import 'ext4/default/all';
+.sidepanel .x-grid-header-ct {border:none !important;}
+.sidepanel .x-grid-header-ct .x-box-inner {border-bottom:solid 1px #c5c5c5 !important;}
+.customcontent .x-toolbar {border:none;border-bottom:1px solid #c5c5c5 !important;}

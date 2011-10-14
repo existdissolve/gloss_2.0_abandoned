@@ -1,0 +1,279 @@
+@import "compass/css3";
+@import "blueprint/typography";
+
+$include-default: true !default;
+$include-default-uis: true !default;
+
+@import 'functions';
+@import 'variables';
+@import 'mixins';
+
+//core
+@import 'core';
+
+//layout
+@import 'layout/layout';
+
+//utils
+@import 'util/tool';
+@import 'util/messagebox';
+@import 'util/splitter';
+@import 'util/resizable';
+@import 'util/dragdrop';
+@import 'util/scroller';
+@import 'util/focus';
+
+//widgets
+@import 'widgets';
+
+@if $scope-reset-css {
+    .#{$prefix}reset {
+        @if $include-default {
+        	@include extjs-boundlist;
+        	@include extjs-button;
+        	@include extjs-btn-group;
+        	@include extjs-datepicker;
+        	@include extjs-colorpicker;
+        	@include extjs-menu;
+        	@include extjs-grid;
+        	@include extjs-form;
+        	    @include extjs-form-field;
+        	    @include extjs-form-fieldset;
+        	    @include extjs-form-checkboxfield;
+        	    @include extjs-form-checkboxgroup;
+        	    @include extjs-form-triggerfield;
+        	    @include extjs-form-htmleditor;
+        	@include extjs-panel;
+        	@include extjs-qtip;
+        	@include extjs-slider;
+        	@include extjs-progress;
+        	@include extjs-toolbar;
+            @include extjs-window;
+            @include extjs-messagebox;
+            @include extjs-tabbar;
+        	@include extjs-tab;
+        	@include extjs-tree;
+        	@include extjs-drawcomponent;
+        	@include extjs-viewport;
+        }
+
+        @include extjs-dragdrop;
+        @include extjs-resizable;
+        @include extjs-splitter;
+        @include extjs-layout;
+        @include extjs-tool;
+        @include extjs-scroller;
+        
+        @include extjs-html;
+    }
+}
+@else {
+    @if $include-default {
+    	@include extjs-boundlist;
+    	@include extjs-button;
+    	@include extjs-btn-group;
+    	@include extjs-datepicker;
+    	@include extjs-colorpicker;
+    	@include extjs-menu;
+    	@include extjs-grid;
+    	@include extjs-form;
+    	    @include extjs-form-field;
+    	    @include extjs-form-fieldset;
+    	    @include extjs-form-file;
+    	    @include extjs-form-checkboxfield;
+    	    @include extjs-form-checkboxgroup;
+    	    @include extjs-form-triggerfield;
+    	    @include extjs-form-htmleditor;
+    	@include extjs-panel;
+    	@include extjs-qtip;
+    	@include extjs-slider;
+    	@include extjs-progress;
+    	@include extjs-toolbar;
+        @include extjs-window;
+        @include extjs-messagebox;
+        @include extjs-tabbar;
+    	@include extjs-tab;
+    	@include extjs-tree;
+    	@include extjs-drawcomponent;
+    	@include extjs-viewport;
+    }
+
+    @include extjs-dragdrop;
+    @include extjs-resizable;
+    @include extjs-splitter;
+    @include extjs-layout;
+    @include extjs-tool;
+    @include extjs-scroller;
+    
+    @include extjs-html;
+}
+
+.toolbar {width: 100%;height: 24px;height:36px;background: url(../images/tool-bg.png) repeat-x left top;margin-bottom: -3px;position: relative;color: white;font-weight: bold;font-size: .7em;padding-top: 0px;padding-left: 5px;position:fixed;z-index:1000;top:0px;}
+.apptitle {position:relative;top:-13px;margin-left:10px;}
+.icon {display:inline-block;top:1px;position:relative;margin-left:2px;}
+.no-icon {display : none;}
+.x-tree-checkbox {display:none;}
+td.x-grid-cell  {padding:5px 3px;}
+
+.x-grid-row-selected td.x-grid-cell div.x-grid-cell-inner {font-size: 1em;text-shadow: 1px 1px 1px white;}
+.x-grid-row-over td.x-grid-cell {outline-top: 1px solid $gloss-grid-row-over-background-color;outline-bottom: 1px solid $gloss-grid-row-over-background-color;background:url("../images/angled_line_bg_50.png") repeat scroll 0 0 $gloss-grid-row-over-background-color;}
+.x-grid-row-selected td.x-grid-cell {background:$gloss-grid-row-selected-background-color !important;background:url("../images/angled_line_bg_50.png") repeat scroll 0 0 $gloss-grid-row-selected-background-color !important;outline:1px solid $gloss-grid-row-selected-border-color;}
+.nobg .x-grid-row-selected td.x-grid-cell {background:#eaeaea !important;background:url("../images/angled_line_bg_50.png") repeat scroll 0 0 #eaeaea !important;outline: none;}
+//.customcontent .x-grid-row-selected .x-grid-cell, .x-grid-row-selected .x-grid-rowwrap-div {outline:none !important; border:none !important;}
+.x-grid-cell-inner {padding:2px 6px !important;}
+.x-grid-row-selected .x-grid-cell, .x-grid-row-selected .x-grid-rowwrap-div {border-style:solid;border-color:#ededed;border-top-color:#fafafa;}
+
+#body {padding:10px;padding: 10px 20px 10px 30px;font-size:.9em;width:70%;width: 100%;}
+#body .x-panel-body {overflow: visible;}
+#body .note samp {font-size:1.15em;}
+#body .tablenoborder {background: none repeat scroll 0 0 white;}
+#body .tablenoborder table {border-collapse: collapse;}
+#body .tablenoborder table {width:100%; }
+#body .tablenoborder td {line-height:1.6em;}
+#body .tablenoborder samp {font-size:1.15em;}
+#body h4, #body h2, div#relatedlinkinfo {margin-bottom: 5px;padding: 5px 0;font-weight:bold;}
+#body p {font-size: 0.85em;margin-bottom: 10px;line-height: 1.6em;}
+#body .section th p, #body th p {margin-bottom:0px;}
+#body p samp {font-size:1.15em;}
+#body .section {margin:10px 0;}
+#body ul.navlinklist, #body ul#minitoc-links, #body ul {margin-top:15px;margin-left:25px;}
+#body ul.navlinklist li,#body ul#minitoc-links li, #body ul li {margin:0 0 3px 0;padding:0 0 3px 0;}
+#body ul.navlinklist li a {font-size:.85em;}
+#body ul li {list-style:disc;}
+#body a.actionbookmark, #body a.actionnote, #body a.actionpage {color: transparent;display: inline-block;height: 16px;position: relative;text-decoration: none;top: -1px;width: 16px;margin-left:5px;cursor: pointer;}
+#body a.actionbookmark:hover, #body a.actionnote:hover, #body a.actionpage:hover {background-color:transparent !important;}
+#body a.actionbookmark,#body a.actionbookmark:hover {background: url("../images/tag-color.png") no-repeat scroll 0 0 transparent;margin-left:15px;}
+#body a.actionnote,#body a.actionnote:hover {background: url("../images/note.png") no-repeat scroll 0 0 transparent;}
+#body a.actionpage,#body a.actionpage:hover {background: url("../images/page_white_link.png") no-repeat scroll 0 0 transparent;}
+
+
+#body .tablenoborder td, #body .tablenoborder th {border: 1px solid #333333;;padding: 5px;background: -moz-linear-gradient(top, $gloss-body-table-td-background-start-color 0%, $gloss-body-table-td-background-end-color 100%); /* firefox */background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$gloss-body-table-td-background-start-color), color-stop(100%,$gloss-body-table-td-background-end-color)); /* webkit */}
+#body .tablenoborder th {background: $gloss-body-table-th-background-color;color: #fff;font-size: 0.7em;font-weight: bold;text-shadow: 1px 1px 1px #000;text-transform: uppercase;}
+#body h1 {-moz-border-radius-topright: 5px;-moz-border-radius-bottomright:5px;border-radius:0 3px 3px 0;border-radius-bottomright:3px;background: none repeat scroll 0 0 $gloss-body-h1-background-color;color: $gloss-body-h1-color;display: inline-block;font-size: 2em;padding: 5px 10px 5px 12px;text-shadow: 1px 1px 1px #000000;margin-left:-32px;margin-bottom:10px;}
+#body a {color:$gloss-body-a-color;}
+#body a:hover {color:$gloss-body-a-hover-color;text-decoration:none;background:$gloss-body-a-hover-background-color;outline:3px solid $gloss-body-a-hover-background-color;}
+#body .notetitle {color:$gloss-body-a-color;font-weight:bold;}
+#body .note {background: url(../images/angled_line_bg_50.png) $gloss-note-background-color repeat;border-radius: 3px;border: solid 1px $gloss-note-border-color;font-size: .8em;margin: 10px 0;padding: 8px;}
+#body .note, #body pre, #body .tablenoborder {-webkit-box-shadow: 2px 2px 5px #999;-webkit-box-shadow: 2px 2px 3px #ccc;}
+#body pre, .emptytext {background: url("../images/angled_line_bg_25.png") repeat scroll 0 0 $gloss-body-pre-background-color;border:solid 1px $gloss-body-pre-border-color;padding: 8px;white-space: pre-wrap;margin-bottom:5px;border-radius:3px;}
+#body pre:hover {background: url("../images/angled_line_bg_25.png") repeat scroll 0 0 $gloss-body-pre-hover-background-color;}
+.emptytext {margin:5px;}
+
+h1.special {margin-bottom:50px !important;margin-top:30px;padding-left:128px !important;position:relative;}
+img.main-icon {left:0;position:absolute;top:-38px;}
+
+.comment-content {white-space: pre-wrap;}
+.comment-date {position:absolute;right:5px;font-weight:bold;}
+.comment-author {font-weight:bold;color:$gloss-comment-a-color;display:inline-block;margin-right:5px;}
+.comment-header {background: url("../images/angled_line_bg_50.png") repeat scroll 0 0 $gloss-comment-background-color;border: 1px solid $gloss-comment-border-color;padding:3px;margin:-3px -5px 5px;position:relative;}
+
+.maincontent {overflow-y: scroll;}
+.maincontent::-webkit-scrollbar,
+.x-scroller-ct::-webkit-scrollbar,
+.x-panel-body.scrollable::-webkit-scrollbar {
+    border-left: 1px solid $gloss-scrollbar-border-color;
+    border-right: 1px solid $gloss-scrollbar-border-color;
+    width: 10px;
+    background: url("../images/angled_line_bg_50.png") repeat scroll 0 0 $gloss-scrollbar-background-color;
+}
+.maincontent::-webkit-scrollbar-thumb:vertical,
+.x-scroller-ct::-webkit-scrollbar-thumb:vertical,
+.x-panel-body.scrollable::-webkit-scrollbar-thumb:vertical {
+    background: rgba(0, 0, 0, .3);
+}
+
+.searchbg {background: url("../images/angled_line_bg_10.png") repeat scroll 0 0 $gloss-body-a-hover-background-color;}
+.searchbg label {color:$base-light-color;}
+.searchbg .x-form-item {margin-bottom:2px;}
+
+.title-note {background:url("../../images/note.png") no-repeat scroll 0 0 transparent;}
+.title-bookmark {background:url("../../images/tag-color.png") no-repeat scroll 0 0 transparent;}
+.title-comment {background:url("../../images/comments-color.png") no-repeat scroll 0 0 transparent;}
+.title-history {background:url("../../images/time.png") no-repeat scroll 0 0 transparent;}
+.title-news {background:url("../../images/transmit.png") no-repeat scroll 0 0 transparent;}
+.title-coldfusion {background:url("../../images/coldfusion.png") no-repeat scroll 0 0 transparent;}
+.title-cflib {background:url("../../images/book_open.png") no-repeat scroll 0 0 transparent;}
+.title-search {background:url("../../images/magnifier.png") no-repeat scroll 0 0 transparent;}
+.title-settings {background:url("../../images/cog.png") no-repeat scroll 0 0 transparent;}
+.title-custom {background:url("../../images/bricks.png") no-repeat scroll 0 0 transparent;}
+body > .x-mask {background:#010101;opacity:.95}
+.x-mask-msg.custommask {background:none;border-color:#777;border-radius:5px;background-color:#474747;padding:5px}
+.x-mask-msg.custommask div {height:50px;min-width:400px;padding:15px 10px 15px 135px;background-image:url(../../images/loading.gif);cursor:wait;border-radius:5px;font-size:20px;}
+@-webkit-keyframes cm {
+    0% {opacity:0;}
+    5% {opacity:.50}
+    7% {opacity:1}
+    10% {opacity:.25}
+    20% {opacity:1}
+    30% {opacity:.25}
+    40% {opacity:1}
+    50% {opacity:.25}
+    60% {opacity:1}
+    70% {opacity:.25}
+    80% {opacity:1;}
+    90% {opacity:.25;}
+    95% {opacity:.1;}
+    100% {opacity:0;}
+}
+@-moz-keyframes cm {
+    0% {opacity:0;}
+    5% {opacity:.50}
+    7% {opacity:1}
+    10% {opacity:.25}
+    20% {opacity:1}
+    30% {opacity:.25}
+    40% {opacity:1}
+    50% {opacity:.25}
+    60% {opacity:1}
+    70% {opacity:.25}
+    80% {opacity:1;}
+    90% {opacity:.25;}
+    95% {opacity:.1;}
+    100% {opacity:0;}
+}
+span#sp1,span#sp2,span#sp3 {
+    -webkit-animation-name:cm;
+    -webkit-animation-timing-function:ease-out;
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-duration:3s;
+    -webkit-animation-direction: normal;
+    -moz-animation-name:cm;
+    -moz-animation-timing-function:ease-out;
+    -moz-animation-iteration-count:1;
+    -moz-animation-duration:3s;
+    -moz-animation-direction: normal;
+    position:absolute;
+    top:15px;
+    left:150px;
+    display:inline-block;
+    opacity:0;
+}
+span#sp2 {-webkit-animation-delay: 3s;-moz-animation-delay: 3s;}
+span#sp3 {-webkit-animation-delay: 6s;-moz-animation-delay: 6s;}
+#iemessage {background:url("../../images/angled_line_bg_10.png") repeat scroll 0 0 #000;border:solid 3px #222;border-radius:4px;-moz-border-radius:4px;display:none;position:relative;z-index:30000;width:600px;margin:20% auto 0;padding:15px;}
+#iemessage h1 {color:#D1DE3B;font-size:16pt;font-weight:bold;text-shadow:1px 1px 1px #000;margin-bottom:10px;}
+#iemessage p {color:#fafafa;text-shadow:1px 1px 1px #333;font-size:10pt;margin-bottom:10px;}
+#iemessage p a {color:#D1DE3B;font-weight:bold;}
+.x-mask-msg.maskmsg div,.x-mask-msg.maskmsg {background:none !important;border:none !important;color:#efefef;font-weight:bold;text-shadow:1px 1px 1px #777;font-size:10pt !important;}
+#message {background:url("../../images/angled_line_bg_50.png") repeat scroll 0 0 #dfdfdf;border: 1px solid #BBB;padding:3px 5px;position:absolute;right:10px;opacity:0;top:6px;font-weight:bold;color: black;border-radius: 3px;}
+.list-icon {margin:0 5px -3px 0;}
+.x-btn.walkthroughbutton span {
+            background: url(../../images/compass-icon2.png) 8px 4px no-repeat;
+            line-height: 42px;
+            padding-left: 58px;
+            text-align: left;
+            font-size: 15pt;
+        }
+        .x-html .wtcontent h1 {margin:0px;font-size:1.6em;}
+        .x-html .wtcontent h2 {font-size:1.2em;clear:both;margin:0px;}
+        .wtimage {
+            border-radius:10px;
+            display:inline-block;
+            height:100px;
+            width:118px;
+            float:left;
+            border: solid 5px #efefef;
+            margin:0 10px 10px 0;
+        }
+        .wtimage.cut {height:80px;}
+        a[href="#top"] {display:none;}

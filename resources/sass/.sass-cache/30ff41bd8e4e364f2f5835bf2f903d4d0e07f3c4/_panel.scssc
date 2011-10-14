@@ -1,0 +1,1067 @@
+3.1.7 (Brainy Betty)
+733a09f11193cb3561fa762247aa1a3313d406ff
+o:Sass::Tree::RootNode
+:@template"ÙA/**
+  * @class Ext.Panel
+  * Used to create the base structure of an Ext.Panel
+  */
+@mixin extjs-panel {
+    .#{$prefix}panel,
+    .#{$prefix}plain {
+        overflow: hidden;
+        position: relative;
+    }
+    
+     @if $include-ie {
+        // Workaround for disappearing right edge in IE6
+        .#{$prefix}ie {
+            .#{$prefix}panel-header,
+            .#{$prefix}panel-header-tl,
+            .#{$prefix}panel-header-tc,
+            .#{$prefix}panel-header-tr,
+            .#{$prefix}panel-header-ml,
+            .#{$prefix}panel-header-mc,
+            .#{$prefix}panel-header-mr,
+            .#{$prefix}panel-header-bl,
+            .#{$prefix}panel-header-bc,
+            .#{$prefix}panel-header-br {
+                zoom: 1;
+            }
+        }
+        // Fix for IE8 clipping. EXTJSIV-1553
+        .#{$prefix}ie8 {
+            td.#{$prefix}frame-mc {
+                vertical-align: top;
+            }
+        }
+    }
+    
+    //panel header
+    .#{$prefix}panel-header {
+        padding: $panel-header-padding;
+    }
+    
+    .#{$prefix}panel-header-icon,
+    .#{$prefix}window-header-icon {
+        width:16px;
+        height:16px;
+        background-repeat:no-repeat;
+        background-position:0 0;
+        vertical-align:middle;
+        margin-right:4px;
+        margin-top:-1px;
+        margin-bottom:-1px;
+    }
+    
+    .#{$prefix}panel-header-draggable,
+    .#{$prefix}panel-header-draggable .#{$prefix}panel-header-text,
+    .#{$prefix}window-header-draggable,
+    .#{$prefix}window-header-draggable .#{$prefix}window-header-text{
+        cursor: move;
+    }
+
+    // A ghost is just a Panel. The only extra it needs is opacity.
+    // TODO: Make opacity a variable
+    .#{$prefix}panel-ghost, .#{$prefix}window-ghost {
+        @include opacity(0.65);
+        cursor: move;
+    }
+
+    .#{$prefix}panel-header-horizontal, .#{$prefix}window-header-horizontal, .#{$prefix}btn-group-header-horizontal {
+        .#{$prefix}panel-header-body, .#{$prefix}window-header-body, .#{$prefix}btn-group-header-body {
+            width: 100%;
+        }
+    }
+
+    .#{$prefix}panel-header-vertical, .#{$prefix}window-header-vertical, .#{$prefix}btn-group-header-vertical {
+        .#{$prefix}panel-header-body, .#{$prefix}window-header-body, .#{$prefix}btn-group-header-body {
+            height: 100%;
+        }
+    }
+
+    // Vertical headers must be inline blocks so that they acquire width from the content
+    .#{$prefix}panel-header-vertical, .#{$prefix}panel-header-vertical .#{$prefix}panel-header-body,
+    .#{$prefix}btn-group-header-vertical, .#{$prefix}btn-group-header-vertical .#{$prefix}btn-group-header-body,
+    .#{$prefix}window-header-vertical, .#{$prefix}window-header-vertical .#{$prefix}window-header-body {
+        display: -moz-inline-stack;
+        display: inline-block;
+    }
+
+    .#{$prefix}panel-header-text {
+        @include no-select;
+        white-space: nowrap;
+    }
+
+    .#{$prefix}panel-header-left,
+    .#{$prefix}panel-header-right {
+        .#{$prefix}vml-base {
+            left: -3px !important;
+        }
+    }
+
+    //panel body
+    .#{$prefix}panel-body {
+        overflow: hidden;
+        position: relative;
+        
+        font-size: $panel-body-font-size;
+    }
+
+    .#{$prefix}panel-header-vertical {
+        .#{$prefix}surface {
+            margin-top: 2px;
+        }
+    }
+    
+    .#{$prefix}panel-header-plain-vertical {
+        .#{$prefix}surface {
+            margin-top: 0;
+        }
+    }
+    
+        
+    .#{$prefix}panel-collapsed {
+        .#{$prefix}panel-header-collapsed-border-top {
+            border-bottom-width: $panel-header-border-width !important;
+        }
+        .#{$prefix}panel-header-collapsed-border-right {
+            border-left-width: $panel-header-border-width !important;
+        }
+        .#{$prefix}panel-header-collapsed-border-bottom {
+            border-top-width: $panel-header-border-width !important;
+        }
+        .#{$prefix}panel-header-collapsed-border-left {
+            border-right-width: $panel-header-border-width !important;
+        }
+    }
+
+    @if not $supports-gradients or $compile-all {
+        .#{$prefix}nlg .#{$prefix}panel-header-vertical {
+            .#{$prefix}frame-mc {
+                background-repeat: repeat-y;
+            }
+        }
+    }
+
+    @if $include-panel-uis == true {
+        @include extjs-panel-ui(
+            'default',
+
+            $ui-base-color: $panel-base-color,
+            $ui-border-width: $panel-border-width,
+            $ui-border-color: $panel-border-color,
+            $ui-border-radius: $panel-border-radius,
+            
+            $ui-header-color: $panel-header-color,
+            $ui-header-font-size: $panel-header-font-size,
+            $ui-header-font-weight: $panel-header-font-weight,
+            $ui-header-border-color: $panel-header-border-color,
+            $ui-header-background-color: $panel-header-background-color,
+            $ui-header-background-gradient: $panel-header-background-gradient,
+
+            $ui-body-color: $panel-body-color,
+            $ui-body-border-color: $panel-body-border-color,
+            $ui-body-border-width: 1px,
+            $ui-body-background-color: $panel-body-background-color
+        );
+        
+        @include extjs-panel-ui(
+            'default-framed',
+
+            $ui-base-color: $panel-base-color,
+            $ui-border-width: $panel-frame-border-width,
+            $ui-border-color: $panel-frame-border-color,
+            $ui-border-radius: $panel-frame-border-radius,
+
+            $ui-header-color: $panel-header-color,
+            $ui-header-font-size: $panel-header-font-size,
+            $ui-header-font-weight: $panel-header-font-weight,
+            $ui-header-border-color: $panel-frame-border-color,
+            $ui-header-background-color: $panel-header-background-color,
+            $ui-header-background-gradient: $panel-header-background-gradient,
+
+            $ui-body-color: $panel-body-color,
+            $ui-body-border-color: $panel-body-border-color,
+            $ui-body-border-width: 0,
+            $ui-body-background-color: $panel-frame-background-color
+        );
+    }
+
+    .x-panel-header-plain,
+    .x-panel-body-plain {
+        border: 0;
+        padding: 0;
+    }
+}
+
+/**
+  * @class Ext.Panel
+  * Used to create a visual theme for an Ext.Panel
+  */
+@mixin extjs-panel-ui(
+    $ui-label,
+
+    $ui-base-color: null,
+
+    $ui-border-color: null,
+    $ui-border-radius: null,
+    $ui-border-width: 0,
+
+    $ui-header-color: null,
+    $ui-header-font-family: $panel-header-font-family,
+    $ui-header-font-size: $panel-header-font-size,
+    $ui-header-font-weight: $panel-header-font-weight,
+    $ui-header-border-color: $ui-border-color,
+    $ui-header-background-color: null,
+    $ui-header-background-gradient: matte,
+    $ui-header-inner-border-color: null,
+
+    $ui-body-color: null,
+    $ui-body-border-color: null,
+    $ui-body-border-width: null,
+    $ui-body-border-style: solid,
+    $ui-body-background-color: null,
+    $ui-body-font-size: null,
+    $ui-body-font-weight: null
+){
+    @if $ui-base-color != null {
+        @if $ui-border-color == null { $ui-border-color: $ui-base-color; }
+
+        @if $ui-header-color == null { $ui-header-color: #fff; }
+        @if $ui-header-background-color == null { $ui-header-background-color: lighten($ui-base-color, 15); }
+    }
+    
+    @if $ui-header-inner-border-color == null and $ui-header-background-color != null {
+        $ui-header-inner-border-color: lighten($ui-header-background-color, 10);
+    }
+
+    .#{$prefix}panel-#{$ui-label} {
+        @if $ui-border-color != null { border-color: $ui-border-color; }
+    }
+
+    // header
+    .#{$prefix}panel-header-#{$ui-label} {
+        @if $ui-header-font-size != null { font-size: $ui-header-font-size; }
+        line-height: $panel-header-line-height;
+
+        @if $ui-header-border-color != null {
+            border-color: $ui-header-border-color;
+            border-width: $panel-header-border-width;
+            border-style: $panel-header-border-style;
+        }
+
+        @if $supports-gradients or $compile-all {
+            @if $ui-header-background-color != null { @include background-gradient($ui-header-background-color, $ui-header-background-gradient); }
+
+            @if $panel-header-inner-border and $ui-header-inner-border-color != null {
+                @include inner-border(
+                    $width: $panel-header-inner-border-width,
+                    $color: $ui-header-inner-border-color
+                );
+            }
+        }
+    }
+    
+    // header background images
+    @if $ui-header-background-color != null and $ui-header-background-gradient != null {
+        @if not $supports-gradients or $compile-all {
+            .#{$prefix}nlg .#{$prefix}panel-header-#{$ui-label}-top {
+                background-image: theme-image($theme-name, 'panel-header/panel-header-#{$ui-label}-top-bg.gif');
+            }
+            
+            .#{$prefix}nlg .#{$prefix}panel-header-#{$ui-label}-bottom {
+                background-image: theme-image($theme-name, 'panel-header/panel-header-#{$ui-label}-bottom-bg.gif');
+            }
+
+            .#{$prefix}nlg .#{$prefix}panel-header-#{$ui-label}-left {
+                background-image: theme-image($theme-name, 'panel-header/panel-header-#{$ui-label}-left-bg.gif');
+            }
+
+            .#{$prefix}nlg .#{$prefix}panel-header-#{$ui-label}-right {
+                background-image: theme-image($theme-name, 'panel-header/panel-header-#{$ui-label}-right-bg.gif');
+            }
+        }
+    }
+    
+    // header text
+    .#{$prefix}panel-header-text-#{$ui-label} {
+        @if $ui-header-color != null { color: $ui-header-color; }
+
+        @if $ui-header-font-size != null {   font-size: $ui-header-font-size; }
+        @if $ui-header-font-weight != null { font-weight: $ui-header-font-weight; }
+        @if $ui-header-font-family != null { font-family: $ui-header-font-family; }
+    }
+
+    // body
+    .#{$prefix}panel-body-#{$ui-label} {
+        @if $ui-body-background-color != null { background: $ui-body-background-color; }
+        @if $ui-body-border-color != null {     border-color: $ui-body-border-color; }
+        @if $ui-body-color != null {            color: $ui-body-color; }
+        @if $ui-body-font-size != null {        font-size: $ui-body-font-size; }
+        @if $ui-body-font-weight != null {      font-size: $ui-body-font-weight; }
+        
+        @if $ui-body-border-width != null {
+            border-width: $ui-body-border-width;
+            @if $ui-body-border-style != null { border-style: $ui-body-border-style; }
+        }
+    }
+    
+    .#{$prefix}panel-collapsed {
+        .#{$prefix}window-header-#{$ui-label},
+        .#{$prefix}panel-header-#{$ui-label} {
+            @if $ui-body-border-color != null { border-color: $ui-body-border-color; }
+        }
+    }
+
+    .#{$prefix}panel-header-#{$ui-label}-vertical {
+        @if $ui-body-border-color != null { border-color: $ui-body-border-color; }
+    }
+
+    @if $ui-base-color != null {
+        @if $supports-gradients or $compile-all {
+            .#{$prefix}panel-header-#{$ui-label}-left,
+            .#{$prefix}panel-header-#{$ui-label}-right {
+                @include background-gradient($ui-header-background-color, $ui-header-background-gradient, right);
+            }
+        }
+    }
+
+    @if $ui-border-radius != null {
+        @include x-frame(
+            'panel',
+            $ui: '#{$ui-label}',
+
+            /* Radius, width, padding and background-color */
+            $border-radius   : $ui-border-radius,
+            $border-width    : $ui-border-width,
+            $padding         : $panel-frame-padding,
+            $background-color: $ui-body-background-color
+        );
+
+
+        @include x-frame('panel-header', '#{$ui-label}-top',    top($ui-border-radius) right($ui-border-radius) 0 0,    $ui-border-width, 4px 5px 4px 5px, $ui-header-background-color, $ui-header-background-gradient);
+        @include x-frame('panel-header', '#{$ui-label}-right',  0 right($ui-border-radius) bottom($ui-border-radius) 0, $ui-border-width, 4px 5px 4px 5px, $ui-header-background-color, $ui-header-background-gradient, false, right);
+        @include x-frame('panel-header', '#{$ui-label}-bottom', 0 0 bottom($ui-border-radius) left($ui-border-radius),  $ui-border-width, 4px 5px 4px 5px, $ui-header-background-color, $ui-header-background-gradient);
+        @include x-frame('panel-header', '#{$ui-label}-left',   top($ui-border-radius) 0 0 left($ui-border-radius),     $ui-border-width, 4px 5px 4px 5px, $ui-header-background-color, $ui-header-background-gradient, false, right);
+        
+        .#{$prefix}panel-header-#{$ui-label}-top {
+            @include inner-border(1px 1px 0 1px, $ui-header-inner-border-color);
+        }
+
+        .#{$prefix}panel-header-#{$ui-label}-right {
+            @include inner-border(1px 1px 1px 0, $ui-header-inner-border-color);
+        }
+
+        .#{$prefix}panel-header-#{$ui-label}-bottom {
+            @include inner-border(0 1px 1px 1px, $ui-header-inner-border-color);
+        }
+
+        .#{$prefix}panel-header-#{$ui-label}-left {
+            @include inner-border(1px 0 1px 1px, $ui-header-inner-border-color);
+        }
+    } @else {
+        .#{$prefix}panel-collapsed {
+            .#{$prefix}panel-header-#{$ui-label}-top {
+                @include border-bottom-radius($ui-border-radius);
+            }
+
+            .#{$prefix}panel-header-#{$ui-label}-right {
+                @include border-left-radius($ui-border-radius);
+            }
+
+            .#{$prefix}panel-header-#{$ui-label}-bottom {
+                @include border-top-radius($ui-border-radius);
+            }
+
+            .#{$prefix}panel-header-#{$ui-label}-left {
+                @include border-right-radius($ui-border-radius);
+            }
+        }
+        
+        .#{$prefix}nlg .#{$prefix}panel-header-#{$ui-label}-right {
+            background-position: top right;
+        }
+        
+        .#{$prefix}panel-header-#{$ui-label}-top {
+            @include inner-border(1px 0 0 0, $ui-header-inner-border-color);
+        }
+
+        .#{$prefix}panel-header-#{$ui-label}-right {
+            @include inner-border(0 1px 0 0, $ui-header-inner-border-color);
+        }
+
+        .#{$prefix}panel-header-#{$ui-label}-bottom {
+            @include inner-border(0 0 1px, $ui-header-inner-border-color);
+        }
+
+        .#{$prefix}panel-header-#{$ui-label}-left {
+            @include inner-border(0 0 0 1px, $ui-header-inner-border-color);
+        }
+    }
+    
+    .#{$prefix}nlg .#{$prefix}panel-header-#{$ui-label}-bottom {
+        background-position: bottom left;
+    }
+    
+    @if $ui-border-radius != null {
+        .#{$prefix}panel .#{$prefix}panel-header-#{$ui-label}-top {
+            border-bottom-width: 1px !important;
+        }
+
+        .#{$prefix}panel .#{$prefix}panel-header-#{$ui-label}-right {
+            border-left-width: 1px !important;
+        }
+
+        .#{$prefix}panel .#{$prefix}panel-header-#{$ui-label}-bottom {
+            border-top-width: 1px !important;
+        }
+
+        .#{$prefix}panel .#{$prefix}panel-header-#{$ui-label}-left {
+            border-right-width: 1px !important;
+        }
+        
+        .#{$prefix}panel-header-#{$ui-label}-collapsed {
+            @include border-radius($ui-border-radius);
+        }
+        
+        @include x-frame('panel-header', '#{$ui-label}-collapsed-top',    top($ui-border-radius) right($ui-border-radius) bottom($ui-border-radius) left($ui-border-radius), $ui-border-width, 4px 5px 4px 5px, $ui-header-background-color, $ui-header-background-gradient);
+        @include x-frame('panel-header', '#{$ui-label}-collapsed-right',  top($ui-border-radius) right($ui-border-radius) bottom($ui-border-radius) left($ui-border-radius), $ui-border-width, 4px 5px 4px 5px, $ui-header-background-color, $ui-header-background-gradient, false, right);
+        @include x-frame('panel-header', '#{$ui-label}-collapsed-bottom', top($ui-border-radius) right($ui-border-radius) bottom($ui-border-radius) left($ui-border-radius), $ui-border-width, 4px 5px 4px 5px, $ui-header-background-color, $ui-header-background-gradient);
+        @include x-frame('panel-header', '#{$ui-label}-collapsed-left',   top($ui-border-radius) right($ui-border-radius) bottom($ui-border-radius) left($ui-border-radius), $ui-border-width, 4px 5px 4px 5px, $ui-header-background-color, $ui-header-background-gradient, false, right);
+    }
+    
+    //background positioning of images
+    .#{$prefix}panel-header-#{$ui-label}-right-tc,
+    .#{$prefix}panel-header-#{$ui-label}-right-mc,
+    .#{$prefix}panel-header-#{$ui-label}-right-bc {
+        background-position: right 0;
+    }
+    
+    .#{$prefix}panel-header-#{$ui-label}-bottom-tc,
+    .#{$prefix}panel-header-#{$ui-label}-bottom-mc,
+    .#{$prefix}panel-header-#{$ui-label}-bottom-bc {
+        background-position: 0 bottom;
+    }
+}:
+@linei:@options{ :@has_childrenT:@children[	o:Sass::Tree::CommentNode:@value"X/**
+  * @class Ext.Panel
+  * Used to create the base structure of an Ext.Panel
+  */;i;@:@silent0:@lines[ ;
+[ :
+@loud0o:Sass::Tree::MixinDefNode;i
+:
+@name"extjs-panel;@;	T;
+[o:Sass::Tree::RuleNode:
+@tabsi ;i;@;	T:
+@rule[
+".o:Sass::Script::Variable	:@underscored_name"prefix;i;"prefix;@"panel,
+    .o;	;"prefix;i;"prefix;@"
+plain;
+[o:Sass::Tree::PropNode;i ;o:Sass::Script::String;"hidden:
+@type:identifier;@;i;["overflow:@prop_syntax:new;@;
+[ o;;i ;o;;"relative;;;@;i;["position;;;@;
+[ u:Sass::Tree::IfNode{[o:Sass::Script::Variable	:@underscored_name"include_ie:
+@linei:
+@name"include-ie:@options{ 0[	o:Sass::Tree::CommentNode:@value"8/* Workaround for disappearing right edge in IE6 */;i;	@	:@silenti :@lines[ :@children[ :
+@loud0o:Sass::Tree::RuleNode:
+@tabsi ;i;	@	:@has_childrenT:
+@rule[".o; 	;"prefix;i;"prefix;	@	"ie;[o;;i ;i;	@	;T;[".o; 	;"prefix;i;"prefix;	@	" panel-header,
+            .o; 	;"prefix;i;"prefix;	@	"#panel-header-tl,
+            .o; 	;"prefix;i;"prefix;	@	"#panel-header-tc,
+            .o; 	;"prefix;i;"prefix;	@	"#panel-header-tr,
+            .o; 	;"prefix;i;"prefix;	@	"#panel-header-ml,
+            .o; 	;"prefix;i;"prefix;	@	"#panel-header-mc,
+            .o; 	;"prefix;i;"prefix;	@	"#panel-header-mr,
+            .o; 	;"prefix;i;"prefix;	@	"#panel-header-bl,
+            .o; 	;"prefix;i;"prefix;	@	"#panel-header-bc,
+            .o; 	;"prefix;i;"prefix;	@	"panel-header-br;[o:Sass::Tree::PropNode;i ;o:Sass::Script::String;"1:
+@type:identifier;	@	;i;["	zoom:@prop_syntax:new;	@	;[ o;
+;"-/* Fix for IE8 clipping. EXTJSIV-1553 */;i!;	@	;i ;[ ;[ ;0o;;i ;i";	@	;T;[".o; 	;"prefix;i";"prefix;	@	"ie8;[o;;i ;i#;	@	;T;["td.o; 	;"prefix;i#;"prefix;	@	"frame-mc;[o;;i ;o;;"top;;;	@	;i$;["vertical-align;;;	@	;[ o;;"/*panel header */;i);@;i ;[ ;
+[ ;0o;;i ;i*;@;	T;[".o;	;"prefix;i*;"prefix;@"panel-header;
+[o;;i ;o;	;"panel_header_padding;i+;"panel-header-padding;@;i+;["padding;;;@;
+[ o;;i ;i/;@;	T;[
+".o;	;"prefix;i.;"prefix;@"panel-header-icon,
+    .o;	;"prefix;i/;"prefix;@"window-header-icon;
+[o;;i ;o;;"	16px;;;@;i0;["
+width;;;@;
+[ o;;i ;o;;"	16px;;;@;i1;["height;;;@;
+[ o;;i ;o;;"no-repeat;;;@;i2;["background-repeat;;;@;
+[ o;;i ;o;;"0 0;;;@;i3;["background-position;;;@;
+[ o;;i ;o;;"middle;;;@;i4;["vertical-align;;;@;
+[ o;;i ;o;;"4px;;;@;i5;["margin-right;;;@;
+[ o;;i ;o:Sass::Script::Number;i˙;i6:@numerator_units["px;@:@original"	-1px:@denominator_units[ ;i6;["margin-top;;;@;
+[ o;;i ;o;;i˙;i7;["px;@; "	-1px;![ ;i7;["margin-bottom;;;@;
+[ o;;i ;i=;@;	T;[".o;	;"prefix;i:;"prefix;@""panel-header-draggable,
+    .o;	;"prefix;i;;"prefix;@"panel-header-draggable .o;	;"prefix;i;;"prefix;@"panel-header-text,
+    .o;	;"prefix;i<;"prefix;@"#window-header-draggable,
+    .o;	;"prefix;i=;"prefix;@"window-header-draggable .o;	;"prefix;i=;"prefix;@"window-header-text;
+[o;;i ;o;;"	move;;;@;i>;["cursor;;;@;
+[ o;;"h/* A ghost is just a Panel. The only extra it needs is opacity.
+ * TODO: Make opacity a variable */;iA;@;i ;[ ;
+[ ;0o;;i ;iC;@;	T;[
+".o;	;"prefix;iC;"prefix;@"panel-ghost, .o;	;"prefix;iC;"prefix;@"window-ghost;
+[o:Sass::Tree::MixinNode;iD;"opacity;@:@keywords{ ;
+[ :
+@args[o;;f0.65000000000000002 ÃÕ;iD;[ ;@; "	0.65;![ o;;i ;o;;"	move;;;@;iE;["cursor;;;@;
+[ o;;i ;iH;@;	T;[".o;	;"prefix;iH;"prefix;@"panel-header-horizontal, .o;	;"prefix;iH;"prefix;@" window-header-horizontal, .o;	;"prefix;iH;"prefix;@" btn-group-header-horizontal;
+[o;;i ;iI;@;	T;[".o;	;"prefix;iI;"prefix;@"panel-header-body, .o;	;"prefix;iI;"prefix;@"window-header-body, .o;	;"prefix;iI;"prefix;@"btn-group-header-body;
+[o;;i ;o;;"	100%;;;@;iJ;["
+width;;;@;
+[ o;;i ;iN;@;	T;[".o;	;"prefix;iN;"prefix;@"panel-header-vertical, .o;	;"prefix;iN;"prefix;@"window-header-vertical, .o;	;"prefix;iN;"prefix;@"btn-group-header-vertical;
+[o;;i ;iO;@;	T;[".o;	;"prefix;iO;"prefix;@"panel-header-body, .o;	;"prefix;iO;"prefix;@"window-header-body, .o;	;"prefix;iO;"prefix;@"btn-group-header-body;
+[o;;i ;o;;"	100%;;;@;iP;["height;;;@;
+[ o;;"]/* Vertical headers must be inline blocks so that they acquire width from the content */;iT;@;i ;[ ;
+[ ;0o;;i ;iW;@;	T;[".o;	;"prefix;iU;"prefix;@"panel-header-vertical, .o;	;"prefix;iU;"prefix;@"panel-header-vertical .o;	;"prefix;iU;"prefix;@"panel-header-body,
+    .o;	;"prefix;iV;"prefix;@"!btn-group-header-vertical, .o;	;"prefix;iV;"prefix;@" btn-group-header-vertical .o;	;"prefix;iV;"prefix;@"!btn-group-header-body,
+    .o;	;"prefix;iW;"prefix;@"window-header-vertical, .o;	;"prefix;iW;"prefix;@"window-header-vertical .o;	;"prefix;iW;"prefix;@"window-header-body;
+[o;;i ;o;;"-moz-inline-stack;;;@;iX;["display;;;@;
+[ o;;i ;o;;"inline-block;;;@;iY;["display;;;@;
+[ o;;i ;i\;@;	T;[".o;	;"prefix;i\;"prefix;@"panel-header-text;
+[o;";i];"no-select;@;#{ ;
+[ ;$[ o;;i ;o;;"nowrap;;;@;i^;["white-space;;;@;
+[ o;;i ;ib;@;	T;[
+".o;	;"prefix;ia;"prefix;@"panel-header-left,
+    .o;	;"prefix;ib;"prefix;@"panel-header-right;
+[o;;i ;ic;@;	T;[".o;	;"prefix;ic;"prefix;@"vml-base;
+[o;;i ;o:Sass::Script::List	;[o;;i¯;id;["px;@; "	-3px;![ o;	;"!important;id;;;@;id:@separator:
+space;@;id;["	left;;;@;
+[ o;;"/*panel body */;ih;@;i ;[ ;
+[ ;0o;;i ;ii;@;	T;[".o;	;"prefix;ii;"prefix;@"panel-body;
+[o;;i ;o;;"hidden;;;@;ij;["overflow;;;@;
+[ o;;i ;o;;"relative;;;@;ik;["position;;;@;
+[ o;;i ;o;	;"panel_body_font_size;im;"panel-body-font-size;@;im;["font-size;;;@;
+[ o;;i ;ip;@;	T;[".o;	;"prefix;ip;"prefix;@"panel-header-vertical;
+[o;;i ;iq;@;	T;[".o;	;"prefix;iq;"prefix;@"surface;
+[o;;i ;o;;"2px;;;@;ir;["margin-top;;;@;
+[ o;;i ;iv;@;	T;[".o;	;"prefix;iv;"prefix;@" panel-header-plain-vertical;
+[o;;i ;iw;@;	T;[".o;	;"prefix;iw;"prefix;@"surface;
+[o;;i ;o;;"0;;;@;ix;["margin-top;;;@;
+[ o;;i ;i};@;	T;[".o;	;"prefix;i};"prefix;@"panel-collapsed;
+[	o;;i ;i~;@;	T;[".o;	;"prefix;i~;"prefix;@"&panel-header-collapsed-border-top;
+[o;;i ;o;%	;[o;	;"panel_header_border_width;i;"panel-header-border-width;@o;	;"!important;i;;;@;i;&;';@;i;["border-bottom-width;;;@;
+[ o;;i ;i|;@;	T;[".o;	;"prefix;i|;"prefix;@"(panel-header-collapsed-border-right;
+[o;;i ;o;%	;[o;	;"panel_header_border_width;i};"panel-header-border-width;@o;	;"!important;i};;;@;i};&;';@;i};["border-left-width;;;@;
+[ o;;i ;i;@;	T;[".o;	;"prefix;i;"prefix;@")panel-header-collapsed-border-bottom;
+[o;;i ;o;%	;[o;	;"panel_header_border_width;iÄ;"panel-header-border-width;@o;	;"!important;iÄ;;;@;iÄ;&;';@;iÄ;["border-top-width;;;@;
+[ o;;i ;iÇ;@;	T;[".o;	;"prefix;iÇ;"prefix;@"'panel-header-collapsed-border-left;
+[o;;i ;o;%	;[o;	;"panel_header_border_width;iÉ;"panel-header-border-width;@o;	;"!important;iÉ;;;@;iÉ;&;';@;iÉ;["border-right-width;;;@;
+[ u;∫[o:Sass::Script::Operation
+:
+@lineiá:@options{ :@operand2o:Sass::Script::Variable	:@underscored_name"compile_all;iá:
+@name"compile-all;@:@operator:or:@operand1o:!Sass::Script::UnaryOperation	;iá;@;:not:@operando;		;
+"supports_gradients;iá;"supports-gradients;@0[o:Sass::Tree::RuleNode:
+@tabsi ;ià;@:@has_childrenT:
+@rule[
+".o;		;
+"prefix;ià;"prefix;@"
+nlg .o;		;
+"prefix;ià;"prefix;@"panel-header-vertical:@children[o;;i ;iâ;@;T;[".o;		;
+"prefix;iâ;"prefix;@"frame-mc;[o:Sass::Tree::PropNode;i :@valueo:Sass::Script::String;"repeat-y:
+@type:identifier;@;iä;["background-repeat:@prop_syntax:new;@;[ u;[[o:Sass::Script::Operation
+:
+@lineiè:@options{ :@operand2o:Sass::Script::Bool:@valueT;iè;@:@operator:eq:@operand1o:Sass::Script::Variable	:@underscored_name"include_panel_uis;iè:
+@name"include-panel-uis;@0[o:Sass::Tree::MixinNode;i£;"extjs-panel-ui;@:@keywords{"ui_header_font_sizeo;	;"panel_header_font_size;iô;"panel-header-font-size;@"ui_base_coloro;	;"panel_base_color;iì;"panel-base-color;@"ui_border_widtho;	;"panel_border_width;iî;"panel-border-width;@"ui_header_font_weighto;	;"panel_header_font_weight;iö;"panel-header-font-weight;@"ui_header_border_coloro;	;"panel_header_border_color;iõ;"panel-header-border-color;@"ui_body_border_widtho:Sass::Script::Number;
+i;i°:@numerator_units["px;@:@original"1px:@denominator_units[ "ui_header_background_coloro;	;""panel_header_background_color;iú;""panel-header-background-color;@"ui_border_radiuso;	;"panel_border_radius;iñ;"panel-border-radius;@""ui_header_background_gradiento;	;"%panel_header_background_gradient;iù;"%panel-header-background-gradient;@"ui_body_border_coloro;	;"panel_body_border_color;i†;"panel-body-border-color;@"ui_body_background_coloro;	;" panel_body_background_color;i¢;" panel-body-background-color;@"ui_body_coloro;	;"panel_body_color;iü;"panel-body-color;@"ui_border_coloro;	;"panel_border_color;iï;"panel-border-color;@"ui_header_coloro;	;"panel_header_color;iò;"panel-header-color;@:@children[ :
+@args[o:Sass::Script::String	;
+"default;ië:
+@type:string;@o;;i∏;"extjs-panel-ui;@;{"ui_header_font_sizeo;	;"panel_header_font_size;iÆ;"panel-header-font-size;@"ui_base_coloro;	;"panel_base_color;i®;"panel-base-color;@"ui_border_widtho;	;"panel_frame_border_width;i©;"panel-frame-border-width;@"ui_header_font_weighto;	;"panel_header_font_weight;iØ;"panel-header-font-weight;@"ui_header_border_coloro;	;"panel_frame_border_color;i∞;"panel-frame-border-color;@"ui_body_border_widtho;;
+i ;i∂;[ ;@;"0;[ "ui_header_background_coloro;	;""panel_header_background_color;i±;""panel-header-background-color;@"ui_border_radiuso;	;"panel_frame_border_radius;i´;"panel-frame-border-radius;@""ui_header_background_gradiento;	;"%panel_header_background_gradient;i≤;"%panel-header-background-gradient;@"ui_body_border_coloro;	;"panel_body_border_color;iµ;"panel-body-border-color;@"ui_body_background_coloro;	;"!panel_frame_background_color;i∑;"!panel-frame-background-color;@"ui_body_coloro;	;"panel_body_color;i¥;"panel-body-color;@"ui_border_coloro;	;"panel_frame_border_color;i™;"panel-frame-border-color;@"ui_header_coloro;	;"panel_header_color;i≠;"panel-header-color;@;[ ;[o;	;
+"default-framed;i¶;;;@o;;i ;iº;@;	T;["3.x-panel-header-plain,
+    .x-panel-body-plain:@parsed_ruleso:"Sass::Selector::CommaSequence;iº:@filename" :@members[o:Sass::Selector::Sequence;+[o:#Sass::Selector::SimpleSequence;iº;*@;+[o:Sass::Selector::Class;iº;["x-panel-header-plain;*@o;,;+["
+o;-;iº;*@;+[o;.;iº;["x-panel-body-plain;*@;
+[o;;i ;o;;"0;;;@;iΩ;["border;;;@;
+[ o;;i ;o;;"0;;;@;iæ;["padding;;;@;
+[ ;$[ o;;"U/**
+  * @class Ext.Panel
+  * Used to create a visual theme for an Ext.Panel
+  */;i¬;@;0;[ ;
+[ ;0o;;iﬂ;"extjs-panel-ui;@;	T;
+[u;è[o:Sass::Script::Operation
+:
+@linei‡:@options{ :@operand2o:Sass::Script::String	:@value"	null;i‡:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_base_color;i‡:
+@name"ui-base-color;@0[u:Sass::Tree::IfNodeÑ[o:Sass::Script::Operation
+:
+@linei·:@options{ :@operand2o:Sass::Script::String	:@value"	null;i·:
+@type:identifier;@:@operator:eq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_border_color;i·:
+@name"ui-border-color;@0[o:Sass::Tree::VariableNode;i·;"ui-border-color:
+@expro;	;"ui_base_color;i·;"ui-base-color;@;@:@children[ :@guarded0u;¶[o:Sass::Script::Operation
+:
+@linei„:@options{ :@operand2o:Sass::Script::String	:@value"	null;i„:
+@type:identifier;@:@operator:eq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_header_color;i„:
+@name"ui-header-color;@0[o:Sass::Tree::VariableNode;i„;"ui-header-color:
+@expro:Sass::Script::Color	;
+0;i„;@:@attrs{	:rediˇ:
+alphai:
+greeniˇ:	blueiˇ;@:@children[ :@guarded0u;F[o:Sass::Script::Operation
+:
+@linei‰:@options{ :@operand2o:Sass::Script::String	:@value"	null;i‰:
+@type:identifier;@:@operator:eq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_header_background_color;i‰:
+@name"ui-header-background-color;@0[o:Sass::Tree::VariableNode;i‰;"ui-header-background-color:
+@expro:Sass::Script::Funcall
+;i‰;"lighten;@:@keywords{ :
+@args[o;	;"ui_base_color;i‰;"ui-base-color;@o:Sass::Script::Number;
+i;i‰:@numerator_units[ ;@:@original"15:@denominator_units[ ;@:@children[ :@guarded0u;¯[o:Sass::Script::Operation
+:
+@lineiÁ:@options{ :@operand2o; 
+;iÁ;@;o:Sass::Script::String	:@value"	null;iÁ:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_header_background_color;iÁ:
+@name"ui-header-background-color;@;:and;o; 
+;iÁ;@;o;		;
+"	null;iÁ;;;@;:eq;o;	;"!ui_header_inner_border_color;iÁ;"!ui-header-inner-border-color;@0[o:Sass::Tree::VariableNode;iË;"!ui-header-inner-border-color:
+@expro:Sass::Script::Funcall
+;iË;"lighten;@:@keywords{ :
+@args[o;	;"ui_header_background_color;iË;"ui-header-background-color;@o:Sass::Script::Number;
+i;iË:@numerator_units[ ;@:@original"10:@denominator_units[ ;@:@children[ :@guarded0o;;i ;iÎ;@;	T;[	".o;	;"prefix;iÎ;"prefix;@"panel-o;	;"ui_label;iÎ;"ui-label;@;
+[u;ê[o:Sass::Script::Operation
+:
+@lineiÏ:@options{ :@operand2o:Sass::Script::String	:@value"	null;iÏ:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_border_color;iÏ:
+@name"ui-border-color;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_border_color;iÏ;"ui-border-color;@;iÏ;["border-color:@prop_syntax:new;@:@children[ o;;"/* header */;iÔ;@;i ;[ ;
+[ ;0o;;i ;i;@;	T;[	".o;	;"prefix;i;"prefix;@"panel-header-o;	;"ui_label;i;"ui-label;@;
+[	u;ù[o:Sass::Script::Operation
+:
+@lineiÒ:@options{ :@operand2o:Sass::Script::String	:@value"	null;iÒ:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_header_font_size;iÒ:
+@name"ui-header-font-size;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_header_font_size;iÒ;"ui-header-font-size;@;iÒ;["font-size:@prop_syntax:new;@:@children[ o;;i ;o;	;"panel_header_line_height;iÚ;"panel-header-line-height;@;iÚ;["line-height;;;@;
+[ u;î[o:Sass::Script::Operation
+:
+@lineiÙ:@options{ :@operand2o:Sass::Script::String	:@value"	null;iÙ:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_header_border_color;iÙ:
+@name"ui-header-border-color;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_header_border_color;iı;"ui-header-border-color;@;iı;["border-color:@prop_syntax:new;@:@children[ o;;i ;
+o;	;"panel_header_border_width;iˆ;"panel-header-border-width;@;iˆ;["border-width;;;@;[ o;;i ;
+o;	;"panel_header_border_style;i˜;"panel-header-border-style;@;i˜;["border-style;;;@;[ u;ë[o:Sass::Script::Operation
+:
+@linei˙:@options{ :@operand2o:Sass::Script::Variable	:@underscored_name"compile_all;i˙:
+@name"compile-all;@:@operator:or:@operand1o;		;
+"supports_gradients;i˙;"supports-gradients;@0[u:Sass::Tree::IfNode	[o:Sass::Script::Operation
+:
+@linei˚:@options{ :@operand2o:Sass::Script::String	:@value"	null;i˚:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_header_background_color;i˚:
+@name"ui-header-background-color;@0[o:Sass::Tree::MixinNode;i˚;"background-gradient;@:@keywords{ :@children[ :
+@args[o;	;"ui_header_background_color;i˚;"ui-header-background-color;@o;	;""ui_header_background_gradient;i˚;""ui-header-background-gradient;@u;}[o:Sass::Script::Operation
+:
+@linei˝:@options{ :@operand2o; 
+;i˝;@;o:Sass::Script::String	:@value"	null;i˝:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"!ui_header_inner_border_color;i˝:
+@name"!ui-header-inner-border-color;@;:and;o;	;"panel_header_inner_border;i˝;"panel-header-inner-border;@0[o:Sass::Tree::MixinNode;i;"inner-border;@:@keywords{"
+coloro;	;"!ui_header_inner_border_color;i ;"!ui-header-inner-border-color;@"
+widtho;	;"$panel_header_inner_border_width;iˇ;"$panel-header-inner-border-width;@:@children[ :
+@args[ o;;"#/* header background images */;i;@;i ;[ ;
+[ ;0u;ô
+[o:Sass::Script::Operation
+:
+@linei:@options{ :@operand2o; 
+;i;@;o:Sass::Script::String	:@value"	null;i:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name""ui_header_background_gradient;i:
+@name""ui-header-background-gradient;@;:and;o; 
+;i;@;o;		;
+"	null;i;;;@;;;o;	;"ui_header_background_color;i;"ui-header-background-color;@0[u:Sass::Tree::IfNode–[o:Sass::Script::Operation
+:
+@linei:@options{ :@operand2o:Sass::Script::Variable	:@underscored_name"compile_all;i:
+@name"compile-all;@:@operator:or:@operand1o:!Sass::Script::UnaryOperation	;i;@;:not:@operando;		;
+"supports_gradients;i;"supports-gradients;@0[	o:Sass::Tree::RuleNode:
+@tabsi ;i	;@:@has_childrenT:
+@rule[".o;		;
+"prefix;i	;"prefix;@"
+nlg .o;		;
+"prefix;i	;"prefix;@"panel-header-o;		;
+"ui_label;i	;"ui-label;@"	-top:@children[o:Sass::Tree::PropNode;i :@valueo:Sass::Script::Funcall
+;i
+;"theme-image;@:@keywords{ :
+@args[o;		;
+"theme_name;i
+;"theme-name;@o:&Sass::Script::StringInterpolation
+;i
+:	@mido;		;
+"ui_label;i
+;"ui-label;@;@:@beforeo:Sass::Script::String	;"panel-header/panel-header-;i
+:
+@type:string;@:@aftero;	;"-top-bg.gif;i
+; ;!;@;i
+;["background-image:@prop_syntax:new;@;[ o;;i ;i;@;T;[".o;		;
+"prefix;i;"prefix;@"
+nlg .o;		;
+"prefix;i;"prefix;@"panel-header-o;		;
+"ui_label;i;"ui-label;@"-bottom;[o;;i ;o;
+;i;"theme-image;@;{ ;[o;		;
+"theme_name;i;"theme-name;@o;
+;i;o;		;
+"ui_label;i;"ui-label;@;@;o;	;"panel-header/panel-header-;i; ;!;@;"o;	;"-bottom-bg.gif;i; ;!;@;i;["background-image;#;$;@;[ o;;i ;i;@;T;[".o;		;
+"prefix;i;"prefix;@"
+nlg .o;		;
+"prefix;i;"prefix;@"panel-header-o;		;
+"ui_label;i;"ui-label;@"
+-left;[o;;i ;o;
+;i;"theme-image;@;{ ;[o;		;
+"theme_name;i;"theme-name;@o;
+;i;o;		;
+"ui_label;i;"ui-label;@;@;o;	;"panel-header/panel-header-;i; ;!;@;"o;	;"-left-bg.gif;i; ;!;@;i;["background-image;#;$;@;[ o;;i ;i;@;T;[".o;		;
+"prefix;i;"prefix;@"
+nlg .o;		;
+"prefix;i;"prefix;@"panel-header-o;		;
+"ui_label;i;"ui-label;@"-right;[o;;i ;o;
+;i;"theme-image;@;{ ;[o;		;
+"theme_name;i;"theme-name;@o;
+;i;o;		;
+"ui_label;i;"ui-label;@;@;o;	;"panel-header/panel-header-;i; ;!;@;"o;	;"-right-bg.gif;i; ;!;@;i;["background-image;#;$;@;[ o;;"/* header text */;i;@;i ;[ ;
+[ ;0o;;i ;i;@;	T;[	".o;	;"prefix;i;"prefix;@"panel-header-text-o;	;"ui_label;i;"ui-label;@;
+[	u;é[o:Sass::Script::Operation
+:
+@linei:@options{ :@operand2o:Sass::Script::String	:@value"	null;i:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_header_color;i:
+@name"ui-header-color;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_header_color;i;"ui-header-color;@;i;["
+color:@prop_syntax:new;@:@children[ u;¢[o:Sass::Script::Operation
+:
+@linei:@options{ :@operand2o:Sass::Script::String	:@value"	null;i:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_header_font_size;i:
+@name"ui-header-font-size;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_header_font_size;i;"ui-header-font-size;@;i;["font-size:@prop_syntax:new;@:@children[ u;¨[o:Sass::Script::Operation
+:
+@linei :@options{ :@operand2o:Sass::Script::String	:@value"	null;i :
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_header_font_weight;i :
+@name"ui-header-font-weight;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_header_font_weight;i ;"ui-header-font-weight;@;i ;["font-weight:@prop_syntax:new;@:@children[ u;¨[o:Sass::Script::Operation
+:
+@linei!:@options{ :@operand2o:Sass::Script::String	:@value"	null;i!:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_header_font_family;i!:
+@name"ui-header-font-family;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_header_font_family;i!;"ui-header-font-family;@;i!;["font-family:@prop_syntax:new;@:@children[ o;;"/* body */;i$;@;i ;[ ;
+[ ;0o;;i ;i%;@;	T;[	".o;	;"prefix;i%;"prefix;@"panel-body-o;	;"ui_label;i%;"ui-label;@;
+[u;∑[o:Sass::Script::Operation
+:
+@linei&:@options{ :@operand2o:Sass::Script::String	:@value"	null;i&:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_body_background_color;i&:
+@name"ui-body-background-color;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_body_background_color;i&;"ui-body-background-color;@;i&;["background:@prop_syntax:new;@:@children[ u;©[o:Sass::Script::Operation
+:
+@linei':@options{ :@operand2o:Sass::Script::String	:@value"	null;i':
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_body_border_color;i':
+@name"ui-body-border-color;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_body_border_color;i';"ui-body-border-color;@;i';["border-color:@prop_syntax:new;@:@children[ u;Ü[o:Sass::Script::Operation
+:
+@linei(:@options{ :@operand2o:Sass::Script::String	:@value"	null;i(:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_body_color;i(:
+@name"ui-body-color;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_body_color;i(;"ui-body-color;@;i(;["
+color:@prop_syntax:new;@:@children[ u;ö[o:Sass::Script::Operation
+:
+@linei):@options{ :@operand2o:Sass::Script::String	:@value"	null;i):
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_body_font_size;i):
+@name"ui-body-font-size;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_body_font_size;i);"ui-body-font-size;@;i);["font-size:@prop_syntax:new;@:@children[ u;¢[o:Sass::Script::Operation
+:
+@linei*:@options{ :@operand2o:Sass::Script::String	:@value"	null;i*:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_body_font_weight;i*:
+@name"ui-body-font-weight;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_body_font_weight;i*;"ui-body-font-weight;@;i*;["font-size:@prop_syntax:new;@:@children[ u;j[o:Sass::Script::Operation
+:
+@linei,:@options{ :@operand2o:Sass::Script::String	:@value"	null;i,:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_body_border_width;i,:
+@name"ui-body-border-width;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_body_border_width;i-;"ui-body-border-width;@;i-;["border-width:@prop_syntax:new;@:@children[ u:Sass::Tree::IfNode©[o:Sass::Script::Operation
+:
+@linei.:@options{ :@operand2o:Sass::Script::String	:@value"	null;i.:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_body_border_style;i.:
+@name"ui-body-border-style;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_body_border_style;i.;"ui-body-border-style;@;i.;["border-style:@prop_syntax:new;@:@children[ o;;i ;i2;@;	T;[".o;	;"prefix;i2;"prefix;@"panel-collapsed;
+[o;;i ;i4;@;	T;[".o;	;"prefix;i3;"prefix;@"window-header-o;	;"ui_label;i3;"ui-label;@",
+        .o;	;"prefix;i4;"prefix;@"panel-header-o;	;"ui_label;i4;"ui-label;@;
+[u;©[o:Sass::Script::Operation
+:
+@linei5:@options{ :@operand2o:Sass::Script::String	:@value"	null;i5:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_body_border_color;i5:
+@name"ui-body-border-color;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_body_border_color;i5;"ui-body-border-color;@;i5;["border-color:@prop_syntax:new;@:@children[ o;;i ;i9;@;	T;[
+".o;	;"prefix;i9;"prefix;@"panel-header-o;	;"ui_label;i9;"ui-label;@"-vertical;
+[u;©[o:Sass::Script::Operation
+:
+@linei::@options{ :@operand2o:Sass::Script::String	:@value"	null;i::
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_body_border_color;i::
+@name"ui-body-border-color;@0[o:Sass::Tree::PropNode:
+@tabsi ;
+o;	;"ui_body_border_color;i:;"ui-body-border-color;@;i:;["border-color:@prop_syntax:new;@:@children[ u;X[o:Sass::Script::Operation
+:
+@linei=:@options{ :@operand2o:Sass::Script::String	:@value"	null;i=:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_base_color;i=:
+@name"ui-base-color;@0[u:Sass::Tree::IfNodeB[o:Sass::Script::Operation
+:
+@linei>:@options{ :@operand2o:Sass::Script::Variable	:@underscored_name"compile_all;i>:
+@name"compile-all;@:@operator:or:@operand1o;		;
+"supports_gradients;i>;"supports-gradients;@0[o:Sass::Tree::RuleNode:
+@tabsi ;i@;@:@has_childrenT:
+@rule[".o;		;
+"prefix;i?;"prefix;@"panel-header-o;		;
+"ui_label;i?;"ui-label;@"-left,
+            .o;		;
+"prefix;i@;"prefix;@"panel-header-o;		;
+"ui_label;i@;"ui-label;@"-right:@children[o:Sass::Tree::MixinNode;iA;"background-gradient;@:@keywords{ ;[ :
+@args[o;		;
+"ui_header_background_color;iA;"ui-header-background-color;@o;		;
+""ui_header_background_gradient;iA;""ui-header-background-gradient;@o:Sass::Script::String	:@value"
+right;iA:
+@type:identifier;@u;•#[o:Sass::Script::Operation
+:
+@lineiF:@options{ :@operand2o:Sass::Script::String	:@value"	null;iF:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_border_radius;iF:
+@name"ui-border-radius;@u:Sass::Tree::IfNodeF[00[o:Sass::Tree::RuleNode:
+@tabsi :
+@lineih:@options{ :@has_childrenT:
+@rule[".o:Sass::Script::Variable	:@underscored_name"prefix;ih:
+@name"prefix;@"panel-collapsed:@children[	o; ;i ;ii;@;	T;
+[
+".o;	;"prefix;ii;"prefix;@"panel-header-o;	;"ui_label;ii;"ui-label;@"	-top;[o:Sass::Tree::MixinNode;ij;"border-bottom-radius;@:@keywords{ ;[ :
+@args[o;	;"ui_border_radius;ij;"ui-border-radius;@o; ;i ;im;@;	T;
+[
+".o;	;"prefix;im;"prefix;@"panel-header-o;	;"ui_label;im;"ui-label;@"-right;[o;;in;"border-left-radius;@;{ ;[ ;[o;	;"ui_border_radius;in;"ui-border-radius;@o; ;i ;iq;@;	T;
+[
+".o;	;"prefix;iq;"prefix;@"panel-header-o;	;"ui_label;iq;"ui-label;@"-bottom;[o;;ir;"border-top-radius;@;{ ;[ ;[o;	;"ui_border_radius;ir;"ui-border-radius;@o; ;i ;iu;@;	T;
+[
+".o;	;"prefix;iu;"prefix;@"panel-header-o;	;"ui_label;iu;"ui-label;@"
+-left;[o;;iv;"border-right-radius;@;{ ;[ ;[o;	;"ui_border_radius;iv;"ui-border-radius;@o; ;i ;iz;@;	T;
+[".o;	;"prefix;iz;"prefix;@"
+nlg .o;	;"prefix;iz;"prefix;@"panel-header-o;	;"ui_label;iz;"ui-label;@"-right;[o:Sass::Tree::PropNode;i :@valueo:Sass::Script::String;"top right:
+@type:identifier;@;i{;["background-position:@prop_syntax:new;@;[ o; ;i ;i~;@;	T;
+[
+".o;	;"prefix;i~;"prefix;@"panel-header-o;	;"ui_label;i~;"ui-label;@"	-top;[o;;i;"inner-border;@;{ ;[ ;[o:Sass::Script::List	;[	o:Sass::Script::Number;i;i:@numerator_units["px;@:@original"1px:@denominator_units[ o;;i ;i;[ ;@;"0;[ o;;i ;i;[ ;@;"0;@åo;;i ;i;[ ;@;"0;@å;i:@separator:
+space;@o;	;"!ui_header_inner_border_color;i;"!ui-header-inner-border-color;@o; ;i ;iÇ;@;	T;
+[
+".o;	;"prefix;iÇ;"prefix;@"panel-header-o;	;"ui_label;iÇ;"ui-label;@"-right;[o;;iÉ;"inner-border;@;{ ;[ ;[o;	;[	o;;i ;iÉ;[ ;@;"0;@åo;;i;iÉ;["px;@;"1px;[ o;;i ;iÉ;[ ;@;"0;@åo;;i ;iÉ;[ ;@;"0;@å;iÉ;;;@o;	;"!ui_header_inner_border_color;iÉ;"!ui-header-inner-border-color;@o; ;i ;iÜ;@;	T;
+[
+".o;	;"prefix;iÜ;"prefix;@"panel-header-o;	;"ui_label;iÜ;"ui-label;@"-bottom;[o;;iá;"inner-border;@;{ ;[ ;[o;	;[o;;i ;iá;[ ;@;"0;@åo;;i ;iá;[ ;@;"0;@åo;;i;iá;["px;@;"1px;[ ;iá;;;@o;	;"!ui_header_inner_border_color;iá;"!ui-header-inner-border-color;@o; ;i ;iä;@;	T;
+[
+".o;	;"prefix;iä;"prefix;@"panel-header-o;	;"ui_label;iä;"ui-label;@"
+-left;[o;;iã;"inner-border;@;{ ;[ ;[o;	;[	o;;i ;iã;[ ;@;"0;@åo;;i ;iã;[ ;@;"0;@åo;;i ;iã;[ ;@;"0;@åo;;i;iã;["px;@;"1px;[ ;iã;;;@o;	;"!ui_header_inner_border_color;iã;"!ui-header-inner-border-color;@[o:Sass::Tree::MixinNode;iP;"x-frame;@:@keywords{
+"paddingo;	;"panel_frame_padding;iN;"panel-frame-padding;@"border_radiuso;	;"ui_border_radius;iL;"ui-border-radius;@"background_coloro;	;"ui_body_background_color;iO;"ui-body-background-color;@"uio:&Sass::Script::StringInterpolation
+;iI:	@mido;	;"ui_label;iI;"ui-label;@;@:@beforeo;		;
+" ;iI;:string;@:@aftero;		;
+" ;iI;;;@"border_widtho;	;"ui_border_width;iM;"ui-border-width;@:@children[ :
+@args[o;		;
+"
+panel;iH;;;@o;;iS;"x-frame;@;{ ;[ ;[o;		;
+"panel-header;iS;;;@o;
+;iS;o;	;"ui_label;iS;"ui-label;@;@;o;		;
+" ;iS;;;@;o;		;
+"	-top;iS;;;@o:Sass::Script::List	;
+[	o:Sass::Script::Funcall
+;iS;"top;@;{ ;[o;	;"ui_border_radius;iS;"ui-border-radius;@o;
+;iS;"
+right;@;{ ;[o;	;"ui_border_radius;iS;"ui-border-radius;@o:Sass::Script::Number;
+i ;iS:@numerator_units[ ;@:@original"0:@denominator_units[ o;;
+i ;iS; [ ;@;!"0;"@Q;iS:@separator:
+space;@o;	;"ui_border_width;iS;"ui-border-width;@o;	;
+[	o;;
+i	;iS; ["px;@;!"4px;"[ o;;
+i
+;iS; ["px;@;!"5px;"[ o;;
+i	;iS; ["px;@;!"4px;"[ o;;
+i
+;iS; ["px;@;!"5px;"[ ;iS;#;$;@o;	;"ui_header_background_color;iS;"ui-header-background-color;@o;	;""ui_header_background_gradient;iS;""ui-header-background-gradient;@o;;iT;"x-frame;@;{ ;[ ;[o;		;
+"panel-header;iT;;;@o;
+;iT;o;	;"ui_label;iT;"ui-label;@;@;o;		;
+" ;iT;;;@;o;		;
+"-right;iT;;;@o;	;
+[	o;;
+i ;iT; [ ;@;!"0;"@Qo;
+;iT;"
+right;@;{ ;[o;	;"ui_border_radius;iT;"ui-border-radius;@o;
+;iT;"bottom;@;{ ;[o;	;"ui_border_radius;iT;"ui-border-radius;@o;;
+i ;iT; [ ;@;!"0;"@Q;iT;#;$;@o;	;"ui_border_width;iT;"ui-border-width;@o;	;
+[	o;;
+i	;iT; ["px;@;!"4px;"[ o;;
+i
+;iT; ["px;@;!"5px;"[ o;;
+i	;iT; ["px;@;!"4px;"[ o;;
+i
+;iT; ["px;@;!"5px;"[ ;iT;#;$;@o;	;"ui_header_background_color;iT;"ui-header-background-color;@o;	;""ui_header_background_gradient;iT;""ui-header-background-gradient;@o:Sass::Script::Bool;
+F;iT;@o;		;
+"
+right;iT;;;@o;;iU;"x-frame;@;{ ;[ ;[o;		;
+"panel-header;iU;;;@o;
+;iU;o;	;"ui_label;iU;"ui-label;@;@;o;		;
+" ;iU;;;@;o;		;
+"-bottom;iU;;;@o;	;
+[	o;;
+i ;iU; [ ;@;!"0;"@Qo;;
+i ;iU; [ ;@;!"0;"@Qo;
+;iU;"bottom;@;{ ;[o;	;"ui_border_radius;iU;"ui-border-radius;@o;
+;iU;"	left;@;{ ;[o;	;"ui_border_radius;iU;"ui-border-radius;@;iU;#;$;@o;	;"ui_border_width;iU;"ui-border-width;@o;	;
+[	o;;
+i	;iU; ["px;@;!"4px;"[ o;;
+i
+;iU; ["px;@;!"5px;"[ o;;
+i	;iU; ["px;@;!"4px;"[ o;;
+i
+;iU; ["px;@;!"5px;"[ ;iU;#;$;@o;	;"ui_header_background_color;iU;"ui-header-background-color;@o;	;""ui_header_background_gradient;iU;""ui-header-background-gradient;@o;;iV;"x-frame;@;{ ;[ ;[o;		;
+"panel-header;iV;;;@o;
+;iV;o;	;"ui_label;iV;"ui-label;@;@;o;		;
+" ;iV;;;@;o;		;
+"
+-left;iV;;;@o;	;
+[	o;
+;iV;"top;@;{ ;[o;	;"ui_border_radius;iV;"ui-border-radius;@o;;
+i ;iV; [ ;@;!"0;"@Qo;;
+i ;iV; [ ;@;!"0;"@Qo;
+;iV;"	left;@;{ ;[o;	;"ui_border_radius;iV;"ui-border-radius;@;iV;#;$;@o;	;"ui_border_width;iV;"ui-border-width;@o;	;
+[	o;;
+i	;iV; ["px;@;!"4px;"[ o;;
+i
+;iV; ["px;@;!"5px;"[ o;;
+i	;iV; ["px;@;!"4px;"[ o;;
+i
+;iV; ["px;@;!"5px;"[ ;iV;#;$;@o;	;"ui_header_background_color;iV;"ui-header-background-color;@o;	;""ui_header_background_gradient;iV;""ui-header-background-gradient;@o;%;
+F;iV;@o;		;
+"
+right;iV;;;@o:Sass::Tree::RuleNode:
+@tabsi ;iX;@:@has_childrenT:
+@rule[
+".o;	;"prefix;iX;"prefix;@"panel-header-o;	;"ui_label;iX;"ui-label;@"	-top;[o;;iY;"inner-border;@;{ ;[ ;[o;	;
+[	o;;
+i;iY; ["px;@;!"1px;"[ o;;
+i;iY; ["px;@;!"1px;"[ o;;
+i ;iY; [ ;@;!"0;"@Qo;;
+i;iY; ["px;@;!"1px;"[ ;iY;#;$;@o;	;"!ui_header_inner_border_color;iY;"!ui-header-inner-border-color;@o;&;'i ;i\;@;(T;)[
+".o;	;"prefix;i\;"prefix;@"panel-header-o;	;"ui_label;i\;"ui-label;@"-right;[o;;i];"inner-border;@;{ ;[ ;[o;	;
+[	o;;
+i;i]; ["px;@;!"1px;"[ o;;
+i;i]; ["px;@;!"1px;"[ o;;
+i;i]; ["px;@;!"1px;"[ o;;
+i ;i]; [ ;@;!"0;"@Q;i];#;$;@o;	;"!ui_header_inner_border_color;i];"!ui-header-inner-border-color;@o;&;'i ;i`;@;(T;)[
+".o;	;"prefix;i`;"prefix;@"panel-header-o;	;"ui_label;i`;"ui-label;@"-bottom;[o;;ia;"inner-border;@;{ ;[ ;[o;	;
+[	o;;
+i ;ia; [ ;@;!"0;"@Qo;;
+i;ia; ["px;@;!"1px;"[ o;;
+i;ia; ["px;@;!"1px;"[ o;;
+i;ia; ["px;@;!"1px;"[ ;ia;#;$;@o;	;"!ui_header_inner_border_color;ia;"!ui-header-inner-border-color;@o;&;'i ;id;@;(T;)[
+".o;	;"prefix;id;"prefix;@"panel-header-o;	;"ui_label;id;"ui-label;@"
+-left;[o;;ie;"inner-border;@;{ ;[ ;[o;	;
+[	o;;
+i;ie; ["px;@;!"1px;"[ o;;
+i ;ie; [ ;@;!"0;"@Qo;;
+i;ie; ["px;@;!"1px;"[ o;;
+i;ie; ["px;@;!"1px;"[ ;ie;#;$;@o;	;"!ui_header_inner_border_color;ie;"!ui-header-inner-border-color;@o;;i ;iè;@;	T;[".o;	;"prefix;iè;"prefix;@"
+nlg .o;	;"prefix;iè;"prefix;@"panel-header-o;	;"ui_label;iè;"ui-label;@"-bottom;
+[o;;i ;o;;"bottom left;;;@;iê;["background-position;;;@;
+[ u;◊[o:Sass::Script::Operation
+:
+@lineiì:@options{ :@operand2o:Sass::Script::String	:@value"	null;iì:
+@type:identifier;@:@operator:neq:@operand1o:Sass::Script::Variable	:@underscored_name"ui_border_radius;iì:
+@name"ui-border-radius;@0[o:Sass::Tree::RuleNode:
+@tabsi ;iî;@:@has_childrenT:
+@rule[".o;	;"prefix;iî;"prefix;@"panel .o;	;"prefix;iî;"prefix;@"panel-header-o;	;"ui_label;iî;"ui-label;@"	-top:@children[o:Sass::Tree::PropNode;i ;
+o;	;
+"1px !important;;;@;iï;["border-bottom-width:@prop_syntax:new;@;[ o;;i ;iò;@;T;[".o;	;"prefix;iò;"prefix;@"panel .o;	;"prefix;iò;"prefix;@"panel-header-o;	;"ui_label;iò;"ui-label;@"-right;[o;;i ;
+o;	;
+"1px !important;;;@;iô;["border-left-width;;;@;[ o;;i ;iú;@;T;[".o;	;"prefix;iú;"prefix;@"panel .o;	;"prefix;iú;"prefix;@"panel-header-o;	;"ui_label;iú;"ui-label;@"-bottom;[o;;i ;
+o;	;
+"1px !important;;;@;iù;["border-top-width;;;@;[ o;;i ;i†;@;T;[".o;	;"prefix;i†;"prefix;@"panel .o;	;"prefix;i†;"prefix;@"panel-header-o;	;"ui_label;i†;"ui-label;@"
+-left;[o;;i ;
+o;	;
+"1px !important;;;@;i°;["border-right-width;;;@;[ o;;i ;i§;@;T;[
+".o;	;"prefix;i§;"prefix;@"panel-header-o;	;"ui_label;i§;"ui-label;@"-collapsed;[o:Sass::Tree::MixinNode;i•;"border-radius;@:@keywords{ ;[ :
+@args[o;	;"ui_border_radius;i•;"ui-border-radius;@o;;i®;"x-frame;@;{ ;[ ;[o;		;
+"panel-header;i®;:string;@o:&Sass::Script::StringInterpolation
+;i®:	@mido;	;"ui_label;i®;"ui-label;@;@:@beforeo;		;
+" ;i®;;;@:@aftero;		;
+"-collapsed-top;i®;;;@o:Sass::Script::List	;
+[	o:Sass::Script::Funcall
+;i®;"top;@;{ ;[o;	;"ui_border_radius;i®;"ui-border-radius;@o;$
+;i®;"
+right;@;{ ;[o;	;"ui_border_radius;i®;"ui-border-radius;@o;$
+;i®;"bottom;@;{ ;[o;	;"ui_border_radius;i®;"ui-border-radius;@o;$
+;i®;"	left;@;{ ;[o;	;"ui_border_radius;i®;"ui-border-radius;@;i®:@separator:
+space;@o;	;"ui_border_width;i®;"ui-border-width;@o;#	;
+[	o:Sass::Script::Number;
+i	;i®:@numerator_units["px;@:@original"4px:@denominator_units[ o;';
+i
+;i®;(["px;@;)"5px;*[ o;';
+i	;i®;(["px;@;)"4px;*[ o;';
+i
+;i®;(["px;@;)"5px;*[ ;i®;%;&;@o;	;"ui_header_background_color;i®;"ui-header-background-color;@o;	;""ui_header_background_gradient;i®;""ui-header-background-gradient;@o;;i©;"x-frame;@;{ ;[ ;[o;		;
+"panel-header;i©;;;@o;
+;i©; o;	;"ui_label;i©;"ui-label;@;@;!o;		;
+" ;i©;;;@;"o;		;
+"-collapsed-right;i©;;;@o;#	;
+[	o;$
+;i©;"top;@;{ ;[o;	;"ui_border_radius;i©;"ui-border-radius;@o;$
+;i©;"
+right;@;{ ;[o;	;"ui_border_radius;i©;"ui-border-radius;@o;$
+;i©;"bottom;@;{ ;[o;	;"ui_border_radius;i©;"ui-border-radius;@o;$
+;i©;"	left;@;{ ;[o;	;"ui_border_radius;i©;"ui-border-radius;@;i©;%;&;@o;	;"ui_border_width;i©;"ui-border-width;@o;#	;
+[	o;';
+i	;i©;(["px;@;)"4px;*[ o;';
+i
+;i©;(["px;@;)"5px;*[ o;';
+i	;i©;(["px;@;)"4px;*[ o;';
+i
+;i©;(["px;@;)"5px;*[ ;i©;%;&;@o;	;"ui_header_background_color;i©;"ui-header-background-color;@o;	;""ui_header_background_gradient;i©;""ui-header-background-gradient;@o:Sass::Script::Bool;
+F;i©;@o;		;
+"
+right;i©;;;@o;;i™;"x-frame;@;{ ;[ ;[o;		;
+"panel-header;i™;;;@o;
+;i™; o;	;"ui_label;i™;"ui-label;@;@;!o;		;
+" ;i™;;;@;"o;		;
+"-collapsed-bottom;i™;;;@o;#	;
+[	o;$
+;i™;"top;@;{ ;[o;	;"ui_border_radius;i™;"ui-border-radius;@o;$
+;i™;"
+right;@;{ ;[o;	;"ui_border_radius;i™;"ui-border-radius;@o;$
+;i™;"bottom;@;{ ;[o;	;"ui_border_radius;i™;"ui-border-radius;@o;$
+;i™;"	left;@;{ ;[o;	;"ui_border_radius;i™;"ui-border-radius;@;i™;%;&;@o;	;"ui_border_width;i™;"ui-border-width;@o;#	;
+[	o;';
+i	;i™;(["px;@;)"4px;*[ o;';
+i
+;i™;(["px;@;)"5px;*[ o;';
+i	;i™;(["px;@;)"4px;*[ o;';
+i
+;i™;(["px;@;)"5px;*[ ;i™;%;&;@o;	;"ui_header_background_color;i™;"ui-header-background-color;@o;	;""ui_header_background_gradient;i™;""ui-header-background-gradient;@o;;i´;"x-frame;@;{ ;[ ;[o;		;
+"panel-header;i´;;;@o;
+;i´; o;	;"ui_label;i´;"ui-label;@;@;!o;		;
+" ;i´;;;@;"o;		;
+"-collapsed-left;i´;;;@o;#	;
+[	o;$
+;i´;"top;@;{ ;[o;	;"ui_border_radius;i´;"ui-border-radius;@o;$
+;i´;"
+right;@;{ ;[o;	;"ui_border_radius;i´;"ui-border-radius;@o;$
+;i´;"bottom;@;{ ;[o;	;"ui_border_radius;i´;"ui-border-radius;@o;$
+;i´;"	left;@;{ ;[o;	;"ui_border_radius;i´;"ui-border-radius;@;i´;%;&;@o;	;"ui_border_width;i´;"ui-border-width;@o;#	;
+[	o;';
+i	;i´;(["px;@;)"4px;*[ o;';
+i
+;i´;(["px;@;)"5px;*[ o;';
+i	;i´;(["px;@;)"4px;*[ o;';
+i
+;i´;(["px;@;)"5px;*[ ;i´;%;&;@o;	;"ui_header_background_color;i´;"ui-header-background-color;@o;	;""ui_header_background_gradient;i´;""ui-header-background-gradient;@o;+;
+F;i´;@o;		;
+"
+right;i´;;;@o;;"*/*background positioning of images */;iÆ;@;i ;[ ;
+[ ;0o;;i ;i±;@;	T;[".o;	;"prefix;iØ;"prefix;@"panel-header-o;	;"ui_label;iØ;"ui-label;@"-right-tc,
+    .o;	;"prefix;i∞;"prefix;@"panel-header-o;	;"ui_label;i∞;"ui-label;@"-right-mc,
+    .o;	;"prefix;i±;"prefix;@"panel-header-o;	;"ui_label;i±;"ui-label;@"-right-bc;
+[o;;i ;o;;"right 0;;;@;i≤;["background-position;;;@;
+[ o;;i ;i∑;@;	T;[".o;	;"prefix;iµ;"prefix;@"panel-header-o;	;"ui_label;iµ;"ui-label;@"-bottom-tc,
+    .o;	;"prefix;i∂;"prefix;@"panel-header-o;	;"ui_label;i∂;"ui-label;@"-bottom-mc,
+    .o;	;"prefix;i∑;"prefix;@"panel-header-o;	;"ui_label;i∑;"ui-label;@"-bottom-bc;
+[o;;i ;o;;"0 bottom;;;@;i∏;["background-position;;;@;
+[ ;$[[o;;"ui_label;"ui-label;{ 0[o;;"ui_base_color;"ui-base-color;@!o;	;"	null;i…;;;@![o;;"ui_border_color;"ui-border-color;@!o;	;"	null;iÀ;;;@![o;;"ui_border_radius;"ui-border-radius;@!o;	;"	null;iÃ;;;@![o;;"ui_border_width;"ui-border-width;@!o;;i ;iÕ;[ ;@!; "0;!@¥[o;;"ui_header_color;"ui-header-color;@!o;	;"	null;iœ;;;@![o;;"ui_header_font_family;"ui-header-font-family;@!o;	;"panel_header_font_family;i–;"panel-header-font-family;@![o;;"ui_header_font_size;"ui-header-font-size;@!o;	;"panel_header_font_size;i—;"panel-header-font-size;@![o;;"ui_header_font_weight;"ui-header-font-weight;@!o;	;"panel_header_font_weight;i“;"panel-header-font-weight;@![o;;"ui_header_border_color;"ui-header-border-color;@!o;	;"ui_border_color;i”;"ui-border-color;@![o;;"ui_header_background_color;"ui-header-background-color;@!o;	;"	null;i‘;;;@![o;;""ui_header_background_gradient;""ui-header-background-gradient;@!o;	;"
+matte;i’;;;@![o;;"!ui_header_inner_border_color;"!ui-header-inner-border-color;@!o;	;"	null;i÷;;;@![o;;"ui_body_color;"ui-body-color;@!o;	;"	null;iÿ;;;@![o;;"ui_body_border_color;"ui-body-border-color;@!o;	;"	null;iŸ;;;@![o;;"ui_body_border_width;"ui-body-border-width;@!o;	;"	null;i⁄;;;@![o;;"ui_body_border_style;"ui-body-border-style;@!o;	;"
+solid;i€;;;@![o;;"ui_body_background_color;"ui-body-background-color;@!o;	;"	null;i‹;;;@![o;;"ui_body_font_size;"ui-body-font-size;@!o;	;"	null;i›;;;@![o;;"ui_body_font_weight;"ui-body-font-weight;@!o;	;"	null;iﬁ;;;@!
