@@ -16,7 +16,7 @@ Ext.define("Gloss.view.search.List", {
             '<tpl for=".">',
                 '<div data-qtip="{title}">',
                     '<tpl if="type.toLowerCase() == \'cfmlref\'">',
-                        '<img src="images/coldFusion.png" class="list-icon" />',
+                        '<img src="images/coldfusion.png" class="list-icon" />',
                     '</tpl>',
                     '<tpl if="type.toLowerCase() == \'library\' || type == \'udf\'">',
                         '<img src="images/book_open.png" class="list-icon" />',

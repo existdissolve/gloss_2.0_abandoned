@@ -22,7 +22,7 @@ Ext.define("Gloss.view.search.Form", {
             labelStyle: "font-weight:bold;font-size:8pt;display:inline-block;position:relative;bottom:-3px",
             items: [
                 {
-                    boxLabel:   "<img src='images/coldFusion.png' align='absmiddle' class='inline-icon' data-qtip='ColdFusion 9 Reference' />",
+                    boxLabel:   "<img src='images/coldfusion.png' align='absmiddle' class='inline-icon' data-qtip='ColdFusion 9 Reference' />",
                     value:      "reference",
                     id:         "checkbox-reference"
                 },
