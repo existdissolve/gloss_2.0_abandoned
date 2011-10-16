@@ -1,0 +1,84 @@
+﻿<html style="background-color:black;">
+<head id="header">
+    <title>Gloss</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/ext-all-gray.css" id="ss-gray">
+    <script type="text/javascript" src="extjs/ext.js"></script>
+    <script type="text/javascript" src="app-all.js"></script>
+</head>
+<body>
+    <div class="toolbar" id="toolbar">
+        <img src="images/gloss.png" class="icon" />
+        <span class="apptitle">...a ColdFusion 9 Reference</span>
+        <span id="message"></span>        
+    </div>
+    <!-- Fields required for history management --> 
+    <form id="history-form" class="x-hide-display"> 
+        <input type="hidden" id="x-history-field" /> 
+        <!--<iframe id="x-history-frame"></iframe>--> 
+    </form> 
+    <div id="iemessage">
+        <h1>Uh-ohs on Gloss!</h1>
+        <p>Yeah, it looks like you're using Internet Explorer (sorry for whatever circumstances are forcing you into that...!) or some other browser that's not quite up to snuff. This site requires a cutting-edge browser like Chrome, Firefox or Safari that can leverage some of the goodness of HTML5 to make functionality better...which also makes <strong>your</strong> experience better.
+         </p>
+         <p>So why not <a href="http://www.google.com/chrome/" target="_blank">get Chrome</a>, and then you can add Gloss to your Chrome Web Store apps. That way, you'll have one-click access to the goodness of Gloss without having to hunt through bookmarks. Plus, Chrome is just awesome, so why deprive yourself any longer?</p>
+    </div>
+    <div id="welcome" class="x-hidden wtcontent">
+        <h2>Well Hello!</h2>
+        <p>
+            <img src="images/icon_128.png" style="float:left;margin:0 5px 10px 0;" />You've stumbled upon Gloss, a simple way to browse the ColdFusion 9 online reference documentation. The whole idea of this project is to make the documentation a little easier to browse (and hopefully prettier, too!), but also to
+        put some tools in your hands so that you can do more with the docs. So whether you want to save bookmarks for later, leave notes for yourself, or even create custom reference documentation, Gloss puts all of this at your fingertips.<br /><br />
+        
+        And to make Gloss even better, we've pulled in all the great user-defined functions from <a href="http://cflib.org">CFLib.org</a>, to make finding the answer to your question or solution to your problem that much easier to find.<br /><br />
+        
+        Ready to get started? Feel free to dive right in, or take a few minutes to learn about the great features that Gloss offers.</p>
+    </div>
+    <div id="reference" class="x-hidden wtcontent">
+        <h2>ColdFusion 9 Reference Documentation</h2>
+        <p>
+            <span style="background:url(images/wt_cf.png);" class="wtimage"></span>
+            The main content of Gloss, the ColdFusion 9 Reference documentation provides an easy way to navigate through the
+        main reference material for ColdFusion. Simply walk down the tree to find the content you're looking for. And if you're in a hurry, 
+        be sure to try the search!</p>
+        <h2>CFLib.org UDFs</h2>
+        <p>
+            <span style="background:url(images/wt_cflib.png);" class="wtimage"></span>
+            CFlib (Comment Function Library Project) provides a very robust collection of user-defined functions (UDFs) that 
+        help expand upon the core functionality provided by ColdFusion, providing easy-to-implement solutions for common functionality needs. The content 
+        from CFLib.org is also integrated into Gloss' search, so be sure to take advantange when searching for that perfect UDF :)</p>
+    </div>
+    <div id="custom" class="x-hidden wtcontent">
+        <h2>Custom Content</h2>
+        <p>
+            <span style="background:url(images/wt_custom.png);" class="wtimage"></span>
+            A brand new feature to Gloss is the ability to create custom reference content. What, exactly, is this?
+        <br /><br />
+        Imagine that you've created a custom tag that you use all the time at work. By creating a custom reference for your content, documentation for it
+        will be right at your fingertips whlie you're browsing the regular ColdFusion 9 reference guide.
+        <br /><br />
+        Who knows? Maybe you'll learn to like documenting your code ;)</p>
+    </div>
+    <div id="tools" class="x-hidden wtcontent">
+        <h2>Bookmarks</h2>
+        <p>
+            <span style="background:url(images/wt_bookmarks.png);" class="wtimage cut"></span>
+            Pretty self-explanatory...you can create bookmarks for literally any page in Gloss, whether it's official CF9 documentation, custom content, or something from the CFLib.org library. After saving a bookmark, it's easily accessible under "My Bookmarks", and can be removed at any time.</p>
+        <h2>Notes</h2>
+        <p>
+            <span style="background:url(images/wt_notes.png);" class="wtimage cut"></span>
+            Like bookmarks, Notes can be saved for any page in Gloss. So whether you've come across a quirk in the docs and want to remind yourself about it, or just want to save a thought or two for later, Notes have you covered.</p>
+        <h2>Search</h2>
+        <p>
+            <span style="background:url(images/wt_search.png);" class="wtimage cut"></span>
+            No matter how well a collection of pages is organized, there are times when you just want to find your content NOW. Gloss' search makes finding the info you need super-easy. Simply enter your search term, and you'll get your results lickety-split. To make you even happier, you can easily filter out content you don't care about...and Gloss will even categorize the results by section. How 'bout dem apples?</p>
+    </div>
+    <div id="settings" class="x-hidden wtcontent">
+        <h2>Auto-load most recent...</h2>
+        <p>This setting tells Gloss whether to save your most-recently visited page and load it up the next time your visit, or whether to forget about you until next time ;)</p>
+        <h2>Find page in navigation...</h2>
+        <p>If you check "Yes", Gloss will try to automatically locate whatever page you've selected in the navigation and highlight it. If you honestly don't care, or are overly jumpy about accordions expanding and collapsing as if they have minds of their own, feel free to turn it off.</p>
+        <h2>Color Scheme</h2>
+        <p>This is your chance to pick a flavor of Gloss that suits your taste. You can pick the "Classic" (bright) theme, celebrate the Kentucky Wildcats with "Big Blue", get a little mono-chromatic with "Simple", or celebrate the changing of the season with "Autumnal."<br /><br />
+        Have ideas for other schemes? Let us know!</p>
+    </div>
+</body>
+</html>
