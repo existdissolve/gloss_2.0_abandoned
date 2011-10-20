@@ -123,8 +123,13 @@ Ext.define("Gloss.controller.Notes", {
             });
 		}
         form.loadRecord(record);
-		// set label
-		Ext.getCmp("notetextarea").fieldLabel = "Note for <span style='font-weight:bold;'>" + title + "</span>";
+        if(Ext.getCmp("notetextarea").labelEl!=null) {
+            // set label
+            Ext.getCmp("notetextarea").labelEl.update("Note for <span style='font-weight:bold;'>" + title + "</span>");
+        }
+        else {
+            Ext.getCmp("notetextarea").fieldLabel = "Note for <span style='font-weight:bold;'>" + title + "</span>";
+        }
 		// show window
 		win.show();
 	},
