@@ -31,7 +31,7 @@
 			select  *
 			from    ccq
 		</cfquery>
-
+    
 		<cfquery name="local.searchresults" dbtype="query">
 			select 	*, 0 as relevance
 			from	results
@@ -41,7 +41,7 @@
 			
 			select 	*, 1 as relevance
 			from	results
-			where 	lower(title) like '%#lcase(arguments.query)#'
+			where 	lower(title) like '#lcase(arguments.query)#%'
 			
 			union
 			
@@ -60,7 +60,7 @@
 		<cfscript>
 			sresults = arraynew(1);
 			sdupes = arraynew(1);
-			maxct = local.searchresults.recordcount > 25 ? 25 : local.searchresults.recordcount;
+			maxct = local.searchresults.recordcount > 100 ? 100 : local.searchresults.recordcount;
 			for(i=1;i<=maxct;i++) {
 				item = {};
 				title = rereplacenocase(trim(local.searchresults.title[i]),'.*\* ?','','all');
