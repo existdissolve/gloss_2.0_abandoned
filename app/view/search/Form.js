@@ -17,10 +17,15 @@ Ext.define("Gloss.view.search.Form", {
             vertical: false,
             layout:"hbox",
             defaults: {checked:true,name:"resultfilter",xtype:"checkbox",width:50},
-            fieldLabel: "Filter Results",
-            labelWidth: 80,
+            fieldLabel: "Filter",
+            labelWidth: 40,
             labelStyle: "font-weight:bold;font-size:8pt;display:inline-block;position:relative;bottom:-3px",
             items: [
+                {
+                    boxLabel:   "<img src='images/10inv.png' align='absmiddle' class='inline-icon' data-qtip='ColdFusion 10 Reference' />",
+                    value:      "10",
+                    id:         "checkbox-10"
+                },
                 {
                     boxLabel:   "<img src='images/coldfusion.png' align='absmiddle' class='inline-icon' data-qtip='ColdFusion 9 Reference' />",
                     value:      "reference",

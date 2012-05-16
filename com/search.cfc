@@ -16,10 +16,16 @@
 			 </cfloop>
 		</cfif>
 		<cfset local.reference  = application.navigation.getsearch()>	
+		<cfset local.cften  = application.navigation.getsearch10()>
 		<cfset local.cflib 		= application.cflib.getsearch()>
 		<cfquery name="local.results" dbtype="query">
 			select	*
 			from	reference
+			
+			union
+			
+			select   *
+			from     cften
 			
 			union
 			
@@ -31,7 +37,7 @@
 			select  *
 			from    ccq
 		</cfquery>
-    
+        
 		<cfquery name="local.searchresults" dbtype="query">
 			select 	*, 0 as relevance
 			from	results
@@ -68,8 +74,8 @@
 				item["title"] 	= title;
 				item["type"]	= local.searchresults.type[i];
 				item["target"]	= local.searchresults.target[i];
-				if(!arrayfind(sdupes,item.target)) {
-					arrayappend(sdupes,item.target);
+				if(!arrayfind(sdupes,item.target & '|' & item.type)) {
+					arrayappend(sdupes,item.target & '|' & item.type);
 					isdupe = false;
 				}
 				else {

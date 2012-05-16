@@ -1,9 +1,9 @@
 component displayname="comments" output="false" {
-    remote any function getComments(required string target) {
+    remote any function getComments(required string target,required string version='9.0') {
     	req = new http();
         req.setmethod("get");
         req.seturl("http://community.adobe.com/help/rss/comments.html");
-        req.addparam(type="url",name="resource_id",value="http://help.adobe.com/en_US/ColdFusion/9.0/CFMLRef/#arguments.target#");
+        req.addparam(type="url",name="resource_id",value="http://help.adobe.com/en_US/ColdFusion/#arguments.version#/CFMLRef/#arguments.target#");
         req.addparam(type="url",name="hl",value="en_US");
         result = req.send().getprefix();
         

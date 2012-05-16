@@ -60,6 +60,10 @@ if (!invalidbrowser) {
                             type = "CFMLRef";
                             target = page[1];
                             break;
+                        case '5':
+                            type = "CFMLRef10";
+                            target = page[1];
+                            break;
                         case '2':
                             type = "custom";
                             target = "custom_content_" + page[1];

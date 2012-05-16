@@ -67,6 +67,7 @@ Ext.define("Gloss.controller.Search", {
 	filterresults: function() {
 		var store = this.getSearchStore();
 		var ref = Ext.getCmp("checkbox-reference");
+        var ten = Ext.getCmp("checkbox-10");
 		var cflib = Ext.getCmp("checkbox-cflib");
 		var custom = Ext.getCmp("checkbox-custom");
 		var filters = [];
@@ -74,6 +75,9 @@ Ext.define("Gloss.controller.Search", {
 		if(ref.checked) {
 			filters.push('cfmlref');
 		}
+        if(ten.checked) {
+            filters.push('cfmlref10');
+        }
 		if(cflib.checked) {
 			filters.push('udf');
 		}

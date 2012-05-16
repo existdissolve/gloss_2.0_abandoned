@@ -60,7 +60,11 @@ Ext.define("Gloss.controller.Bookmarks", {
 	},
 	addbookmark: function(target,title,type) {
 		var store = this.getBookmarksStore();
-		var match = store.find("target",target,0,false,true,true);
+		var match = store.findBy(function(record,id) {
+            if(record.get('target')==target && record.get('type')==type) {
+                return true;
+            }
+        });
 		if(match == -1) {
 			var bookmark = Ext.ModelMgr.getModel('Gloss.model.Bookmark');
 			var dt = new Date();

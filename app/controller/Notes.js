@@ -108,7 +108,11 @@ Ext.define("Gloss.controller.Notes", {
         var store = this.getNotesStore();
         var form  = this.getNotesForm();
 		// try to find a match on the target
-		var match = store.find("target",target);
+		var match = store.findBy(function(record,id) {
+            if(record.get('target')==target && record.get('type')==type) {
+                return true;
+            }
+        });
 		// if there is a match, get the model instance at the index and set the content
 		if(match != -1) {
 			var record = store.getAt(match);
@@ -141,7 +145,11 @@ Ext.define("Gloss.controller.Notes", {
         var vals = form.getValues();
         vals.date = date;
         // try to find match on the target
-        var match = store.find("target",vals.target);
+        var match = store.findBy(function(record,id) {
+            if(record.get('target')==vals.target && record.get('type')==vals.type) {
+                return true;
+            }
+        });
         // if there is NO match, add a record
         if (match == -1) {          
             this.addnote(vals);

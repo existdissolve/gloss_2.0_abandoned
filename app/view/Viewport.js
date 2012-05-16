@@ -20,6 +20,7 @@ Ext.define('Gloss.view.Viewport', {
             layout:     "accordion",
             minWidth:   250,
             items: [
+                {xtype: "cf10"},
                 {xtype: "navigationtree"},
                 {xtype: "customcontentnav"},
                 {xtype: "cflib"}  

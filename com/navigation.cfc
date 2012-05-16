@@ -4,9 +4,13 @@
 			variables.tocbase = "http://help.adobe.com/en_US/ColdFusion/9.0/";
 			variables.tocfile = "/toc.js";
 			cfmlref = createtoc(type="CFMLRef");
+			cfmlref10 = createtoc(type="CFMLRef10");
 			variables.cfmlref_toc = cfmlref.structure;
-			variables.search = buildsearch(variables.cfmlref_toc);
+			variables.cfmlref10_toc = cfmlref10.structure;
+			variables.search = buildsearch(toc=variables.cfmlref_toc,type="CFMLRef");
+			variables.search10 = buildsearch(toc=variables.cfmlref10_toc,type="CFMLRef10");
 			variables.cfmlref_tree= cfmlref.tree;
+			variables.cfmlref10_tree = cfmlref10.tree;
 			return this;
 		</cfscript>
 	</cffunction>
@@ -14,7 +18,7 @@
 	<cffunction name="createtoc" access="private" returntype="struct" hint="creates navigation structure">
 		<cfargument name="type" required="true" type="string" default="cfmlref">
 		<cfset propertype = getpropertype(arguments.type)>
-		<cfhttp url="http://help.adobe.com/en_US/ColdFusion/9.0/#propertype#/toc.js" result="docs">
+		<cfhttp url="http://help.adobe.com/en_US/ColdFusion/#propertype.version#/#propertype.type#/toc.js" result="docs">
 		<cfset toc = rematch('(var dataObjWS.*?\);)',docs.tostring())>
 		<cfset links = structnew()>
 		<cfset tree = querynew("key,href,parent,title,target")>
@@ -29,14 +33,14 @@
 			<cfset links[key] = key>
 			<cfset parent	= replace(rematch(pathmatch,toc[i])[1],'html, ','','all')>
 			<cfset title	= replace(rematch(titlematch,toc[i])[1],'label: "','','all')>
-			<cfset href		= "http://help.adobe.com/en_US/ColdFusion/9.0/#propertype#/"&replace(rematch(hrefmatch,toc[i])[1],'href:"','','all')>
+			<cfset href		= "http://help.adobe.com/en_US/ColdFusion/#propertype.version#/#propertype.type#/"&replace(rematch(hrefmatch,toc[i])[1],'href:"','','all')>
 			<cfset links[key] = {"title"=trim(title),"href"=trim(href),"parent"=trim(parent),"key"=trim(key)}> 
 			
 			<cfscript>
 				queryaddrow(tree,1);
 				querysetcell(tree,"key",key);
 				querysetcell(tree,"parent",replace(rematch(pathmatch,toc[i])[1],'html, ','','all'));
-				querysetcell(tree,"href","http://help.adobe.com/en_US/ColdFusion/9.0/#propertype#/"&replace(rematch(hrefmatch,toc[i])[1],'href:"','','all'));
+				querysetcell(tree,"href","http://help.adobe.com/en_US/ColdFusion/#propertype.version#/#propertype.type#/"&replace(rematch(hrefmatch,toc[i])[1],'href:"','','all'));
 				querysetcell(tree,"title",replace(rematch(titlematch,toc[i])[1],'label: "','','all'));
 				querysetcell(tree,"target",replace(rematch(hrefmatch,toc[i])[1],'href:"','','all'));
 			</cfscript>
@@ -48,12 +52,14 @@
 	
 	<cffunction name="buildsearch" access="private" returntype="query" hint="creates a query-able search query from nav toc">
 		<cfargument name="toc" required="true" type="struct">
+		<cfargument name="type" required="true" type="string" default="cfmlref">
+		<cfset propertype = getpropertype(arguments.type)>
 		<cfset local.results = querynew("summary,title,target,type","varchar,varchar,varchar,varchar")>
         <cfloop collection="#arguments.toc#" item="key">
             <cfset queryaddrow(local.results)>
             <cfset querysetcell(local.results,"title",arguments.toc[key].title)>
-            <cfset querysetcell(local.results,"target",replacenocase(arguments.toc[key].href,'http://help.adobe.com/en_US/ColdFusion/9.0/CFMLRef/','','all'))>
-            <cfset querysetcell(local.results,"type","cfmlref")>
+            <cfset querysetcell(local.results,"target",replacenocase(arguments.toc[key].href,'http://help.adobe.com/en_US/ColdFusion/#propertype.version#/#propertype.type#/','','all'))>
+            <cfset querysetcell(local.results,"type",lcase(arguments.type))>
             <cfset querysetcell(local.results,"summary",arguments.toc[key].title)>
         </cfloop>
         <cfreturn local.results>
@@ -67,7 +73,9 @@
 	<cffunction name="getsearch" access="public" returntype="query" hint="returns search query">
         <cfreturn variables.search>
     </cffunction>
-	
+	<cffunction name="getsearch10" access="public" returntype="query" hint="returns search query">
+        <cfreturn variables.search10>
+    </cffunction>
 	<cffunction name="gettree" access="public" returntype="query" hint="returns tree-based navigation">
 		<cfargument name="type" required="true" type="string">
 		<cfreturn variables[arguments.type & "_tree"]>
@@ -139,7 +147,7 @@
 					<cfset arguments.target = 'WSc3ff6d0ea77859461172e0811cbec22c24-5eac.html'>
 				<cfelse>
 					<!---if we can't find the url, hit up remote server--->
-					<cfhttp url="http://help.adobe.com/en_US/ColdFusion/9.0/#propertype#/#arguments.target#" result="result" resolveurl="yes" redirect="yes" />
+					<cfhttp url="http://help.adobe.com/en_US/ColdFusion/#propertype.version#/#propertype.type#/#arguments.target#" result="result" resolveurl="yes" redirect="yes" />
 					<!---check to make sure a faux-redirect page hasn't been returned--->
 					<cfset match = rematch('<meta http-equiv="refresh" content="0;url=([0-9a-zA-Z-.##]*)" />',result.filecontent)>
 					<!---if there's a match, we need to strip out the redirect link and re-run the http call--->
@@ -157,12 +165,12 @@
 		</cfif>
 		
 		<!---by this point, we've done a few things to make sure that there's a local file to retrieve. let's make sure, though, that it's there--->
-		<cfif fileexists('#application.basepath#content/#arguments.target#')>
+		<cfif fileexists('#application.basepath#content/#arguments.type#/#arguments.target#')>
 			<!---if it's there, go ahead and get it. we'll be done loading the page, and can simply return contet--->
-			<cfhttp url="#application.urlpath##arguments.target#" result="result" resolveurl="no" redirect="yes" />
+			<cfhttp url="#application.urlpath##arguments.type#/#arguments.target#" result="result" resolveurl="no" redirect="yes" />
 		<cfelse>
 			<!---if it's not there, let's try to get it again from the remote server and write it to file--->
-			<cfhttp url="http://help.adobe.com/en_US/ColdFusion/9.0/#arguments.type#/#arguments.target#" result="result" resolveurl="yes" redirect="yes" timeout="3" />
+			<cfhttp url="http://help.adobe.com/en_US/ColdFusion/#propertype.version#/#arguments.type#/#arguments.target#" result="result" resolveurl="yes" redirect="yes" timeout="3" />
 			<!---check to make sure a faux-redirect page hasn't been returned--->
 			<cfset match = rematch('<meta http-equiv="refresh" content="0;url=([0-9a-zA-Z-.##]*)" />',result.filecontent)>
 			<!---if there's a match, we need to strip out the redirect link and re-run the http call--->
@@ -176,13 +184,13 @@
                 <cfset writer.compilepage(title=arguments.title,target=arguments.target,type=arguments.type,reference=arguments.type)>
 			</cfif>
 			<!---now, check more time that the file exists and load it--->
-			<cfif fileexists('#application.basepath#content/#arguments.target#')>
-				<cfhttp url="#application.urlpath##arguments.target#" result="result" resolveurl="no" redirect="yes" timeout="3" />
+			<cfif fileexists('#application.basepath#content/#arguments.type#/#arguments.target#')>
+				<cfhttp url="#application.urlpath##arguments.type#/#arguments.target#" result="result" resolveurl="no" redirect="yes" timeout="3" />
 			</cfif>
 		</cfif>
 		<cfscript>		
 			content = trim(result.filecontent);
-			return {"content"=content,"title"=arguments.title,"target"=arguments.target,"redirect"=redirect};
+			return {"content"=content,"title"=arguments.title,"target"=arguments.target,"redirect"=redirect,"type"=arguments.type};
 		</cfscript>
 	</cffunction>
 	
@@ -213,13 +221,13 @@
 				<cfset arguments.target = 'WSc3ff6d0ea77859461172e0811cbec22c24-5eac.html##'&redirect>
 			</cfif>
 		</cfif>
-		<cfhttp url="#arguments.target#" result="result" resolveurl="yes" redirect="yes" />
+		<cfhttp url="#arguments.target#" result="result" resolveurl="yes" redirect="no" timeout="2000" />
 		<!---check to make sure a faux-redirect page hasn't been returned--->
 		<cfset match = rematch('<meta http-equiv="refresh" content="0;url=([0-9a-zA-Z-.##]*)" />',result.filecontent)>
 		<!---if there's a match, we need to strip out the redirect link and re-run the http call--->
 		<cfif arraylen(match)>
 			<cfset newurl = rereplacenocase(match[1],'<meta http-equiv="refresh" content="0;url=([0-9a-zA-Z-.##]*)" />','\1','all')>
-			<cfset newurl = "http://help.adobe.com/en_US/ColdFusion/9.0/#arguments.reference#/"&newurl>
+			<cfset newurl = "http://help.adobe.com/en_US/ColdFusion/#propertype.version#/#arguments.reference#/"&newurl>
 			<cfhttp url="#newurl#" result="result" resolveurl="yes" redirect="yes" />
 		</cfif>
 		<cfscript>		
@@ -239,22 +247,22 @@
 			// try to remove logo column
 			content = rereplacenocase(content,'<td id="col3">(.*?)</td>','','all');
 			// remove adobe logo
-			content = rereplacenocase(content,'(<img src="http://help.adobe(.com|.com:80)/en_US/ColdFusion/9.0/CFMLRef/images/adobe-lq.png" />)','','all');
+			content = rereplacenocase(content,'(<img src="http://help.adobe(.com|.com:80)/en_US/ColdFusion/#propertype.version#/CFMLRef/images/adobe-lq.png" />)','','all');
 			// remove stupid and worthless 'home' link
-			content = rereplacenocase(content,'<a href="http://help.adobe(.com|.com:80)/en_US/ColdFusion/9.0/CFMLRef/WSf01dbd23413dda0e50e0885e12057559231-8000.html"><b>Home</b></a> / ','',"all");
+			content = rereplacenocase(content,'<a href="http://help.adobe(.com|.com:80)/en_US/ColdFusion/#propertype.version#/CFMLRef/WSf01dbd23413dda0e50e0885e12057559231-8000.html"><b>Home</b></a> / ','',"all");
 			// remove stupid and worthless 'reference' link
-			content = rereplacenocase(content,'<a href="http://help.adobe(.com|.com:80)/en_US/ColdFusion/9.0/CFMLRef/WSf01dbd23413dda0e50e0885e12057559231-8000.html"><b>ColdFusion.*?Reference</b></a> / ','','all');
+			content = rereplacenocase(content,'<a href="http://help.adobe(.com|.com:80)/en_US/ColdFusion/#propertype.version#/CFMLRef/WSf01dbd23413dda0e50e0885e12057559231-8000.html"><b>ColdFusion.*?Reference</b></a> / ','','all');
 			// remove other version of refrence link
-			content = rereplacenocase(content,'<a href="http://help.adobe(.com|.com:80)/en_US/ColdFusion/9.0/CFMLRef/WSf01dbd23413dda0e50e0885e12057559231-8000.html"><b>ColdFusion.*?Reference</b></a>','','all');			
+			content = rereplacenocase(content,'<a href="http://help.adobe(.com|.com:80)/en_US/ColdFusion/#propertype.version#/CFMLRef/WSf01dbd23413dda0e50e0885e12057559231-8000.html"><b>ColdFusion.*?Reference</b></a>','','all');			
 			// match on regular documentation links; replace href with onlick event so we can intercept page navigation
-			content = rereplacenocase(content,'<a href="(http://help.adobe(.com|.com:80)/en_US/ColdFusion/9.0/(CFMLRef)/)([0-9a-zA-Z-]*\.html)">([0-9a-zA-Z,\-+: \n\r\.]*)</a>','<a class="glosslink" href="javascript:void(0);" linktitle="\5" linktarget="\4" linktype="\L\3\E">\5</a>','all');
+			content = rereplacenocase(content,'<a href="(http://help.adobe(.com|.com:80)/en_US/ColdFusion/#propertype.version#/(CFMLRef)/)([0-9a-zA-Z-]*\.html)">([0-9a-zA-Z,\-+: \n\r\.]*)</a>','<a class="glosslink" href="javascript:void(0);" linktitle="\5" linktarget="\4" linktype="#arguments.type#">\5</a>','all');
 			// match on links to other coldfusion references ... removing everything but cfmlref for right now  -- |Developing|Admin|Installing
-			content = rereplacenocase(content,'<a href="(http://help.adobe(.com|.com:80)/en_US/ColdFusion/9.0/(CFMLRef)/)([0-9a-zA-Z-]*\.html)" target="_self">([0-9a-zA-Z,\-+: \n\r\.]*)</a>','<a class="glosslink" href="javascript:void(0);" linktitle="\5" linktarget="\4" linktype="\L\3\E">\5</a>','all');
+			content = rereplacenocase(content,'<a href="(http://help.adobe(.com|.com:80)/en_US/ColdFusion/#propertype.version#/(CFMLRef)/)([0-9a-zA-Z-]*\.html)" target="_self">([0-9a-zA-Z,\-+: \n\r\.]*)</a>','<a class="glosslink" href="javascript:void(0);" linktitle="\5" linktarget="\4" linktype="#arguments.type#">\5</a>','all');
 			
 			
 			
 			// match on breadcrumb navigation links; replace href with onclick event so we can intercept page navigation
-			content = rereplacenocase(content,'<a href="(http://help.adobe(.com|.com:80)/en_US/ColdFusion/9.0/#propertype#/)([0-9a-zA-Z-]*\.html)">(<b>)([a-zA-Z0-9,\-+: \n\r\.]*)(</b>)</a>','<a class="glosslink" href="javascript:void(0);" linktitle="\5" linktarget="3" linktype="#arguments.type#">\4\5\6</a>','all');
+			content = rereplacenocase(content,'<a href="(http://help.adobe(.com|.com:80)/en_US/ColdFusion/#propertype.version#/#propertype.type#/)([0-9a-zA-Z-]*\.html)">(<b>)([a-zA-Z0-9,\-+: \n\r\.]*)(</b>)</a>','<a class="glosslink" href="javascript:void(0);" linktitle="\5" linktarget="3" linktype="#arguments.type#">\4\5\6</a>','all');
 			
 			// get rid of unneeded script tags
 			content = rereplacenocase(content,'<\s*script.*?>(.*?)<\/\s*?script[^>\w]*?>','','all');
@@ -265,7 +273,7 @@
 			// remove unnecessary whitespace
 			content = htmlremovewhitespace(input=content);
 			// strip internal page links of the protocol and target, and just leave the # and link
-			content = rereplacenocase(content,'(href=")(http://help.adobe(.com|.com:80)/en_US/ColdFusion/9.0/#propertype#/)(.*?)(")','href="\4"',"all");
+			content = rereplacenocase(content,'(href=")(http://help.adobe(.com|.com:80)/en_US/ColdFusion/#propertype.version#/#propertype.type#/)(.*?)(")','href="\4"',"all");
 			// for external links, push targer to _blank so the current app isn't redirected
 			content = rereplacenocase(content,'target="_self"','target="_blank"','all');
 			// swap out any port 80 urls with the real mccoy
@@ -324,13 +332,18 @@
 		<cfreturn locvar.str />
 	</cffunction>
 	
-	<cffunction name="getpropertype" access="public" returntype="string" output="false" hint="gets properly capitalized reference name">
+	<cffunction name="getpropertype" access="public" returntype="struct" output="false" hint="gets properly capitalized reference name">
 		<cfargument name="type" type="string" required="true">
-		<cfset local.propertype = "">
+		<cfset local.propertype = structnew()>
 		<cfswitch expression="#arguments.type#">
 			<cfcase value="cfmlref">
-				<cfset local.propertype = "CFMLRef">
+				<cfset local.propertype.type = "CFMLRef">
+				<cfset local.propertype.version = '9.0'>
 			</cfcase>
+			<cfcase value="cfmlref10">
+                <cfset local.propertype.type = "CFMLRef">
+                <cfset local.propertype.version = '10.0'>
+            </cfcase>
 			<cfcase value="developing">
 				<cfset local.propertype = "Developing">
 			</cfcase>

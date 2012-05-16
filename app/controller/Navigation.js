@@ -1,16 +1,18 @@
 Ext.define("Gloss.controller.Navigation", {
     extend: "Ext.app.Controller",
-	stores: ["Navigation","CFLib","CustomContent"],
+	stores: ["Navigation","CF10","CFLib","CustomContent"],
 	models: ["Navigation","CFLib","CustomContentTree"],
 	views: 	[
 		"navigation.Content",
         "navigation.Tree",
+        "navigation.CF10",
 		"navigation.CFLib",
 		"navigation.CustomContentNav"
 	],
 	refs:	[
 		{ref: 'mainContent', selector: 'maincontent'},
 		{ref: "tree", selector: "navigationtree"},
+        {ref: "CF10", selector: "cf10"},
 		{ref: "CFLib", selector: "cflib"},
 		{ref: "CustomContentNav", selector: "customcontentnav"}
 	],
@@ -20,6 +22,21 @@ Ext.define("Gloss.controller.Navigation", {
         var splithash = hash.split(":")[0].replace("#","");
         this.getNavigationStore().on("load",function(){
             if(hash!="" && splithash == 1 || hash=="") {
+                // once store is loaded, try to retrieve the default page
+                me.loaddefaultpage();
+            }
+            Ext.Function.defer(function(){
+                Ext.getBody().unmask()
+                /* uncomment to show walkthrough immediately...
+                var sw = me.getController("Settings").getsetting("sawwalkthrough",true);
+                if(!sw) {
+                    me.getController("Settings").showwalkthrough();
+                }
+                */
+            }, 3000)
+        });
+        this.getCF10Store().on("load",function(){
+            if(hash!="" && splithash == 5 || hash=="") {
                 // once store is loaded, try to retrieve the default page
                 me.loaddefaultpage();
             }
@@ -70,6 +87,9 @@ Ext.define("Gloss.controller.Navigation", {
                     switch(type) {
                         case "CFMLRef":
                             type = 1;
+                            break;
+                        case "CFMLRef10":
+                            type = 5;
                             break;
                         case "custom":
                             type = 2;
@@ -199,6 +219,48 @@ Ext.define("Gloss.controller.Navigation", {
 					item.ctxMenu.showBy(item);
 				}
 			},
+            "cf10": {
+                itemclick: function(view,record,item,index,e) {
+                    // only allow event if it's a true right click; block event if ctrl+click on mac
+                    if (e.type == "click" && e.ctrlKey == false) {
+                        var store = this.getCustomContentStore();
+                        this.loadurl(record.data.target, record.data.title, record.data.type);
+                    }
+                    else {
+                        return false;
+                    }
+                },
+                externalload: function(target,title,type) {
+                    this.loadurl(target,title,type);
+                },
+                itemcontextmenu: function(view,record,item,index,e) {
+                    var me = this;
+                    var r  = record.data;
+                    e.stopEvent();
+                    if (!item.ctxMenu) {
+                        item.ctxMenu = new Ext.menu.Menu({
+                            items : [
+                                {
+                                    text :  "Add Bookmark",
+                                    icon:   "images/tag-color.png",
+                                    handler: function(btn) {
+                                        me.getController("Bookmarks").addbookmark(r.target,r.title,r.type);
+                                    }
+                                },
+                                {
+                                    text:   "Add Note",
+                                    icon:   "images/note.png",
+                                    handler:function(btn) {
+                                        me.getController("Notes").shownote(r.target,r.title,r.type);
+                                    }
+                                }
+                            ],
+                            defaultAlign: "tr"
+                        });
+                    }
+                    item.ctxMenu.showBy(item);
+                }
+            },
 			"cflib": {
 				itemclick: function(view,record,item,index,e) {
 					// only allow event if it's a true right click; block event if ctrl+click on mac
@@ -247,6 +309,11 @@ Ext.define("Gloss.controller.Navigation", {
                 var record = store.findChild("target",target,true);
                 title = record.data.title;
                 break;
+            case "cfmlref10":
+                var store = this.getCF10Store().getRootNode();
+                var record = store.findChild("target",target,true);
+                title = record.data.title;
+                break;
             case "library":
                 var store  = this.getCFLibStore().getRootNode();
                 var record = store.findChild("target",target,true);
@@ -286,6 +353,12 @@ Ext.define("Gloss.controller.Navigation", {
 				type	= "CFMLRef";
 				params 	= {method:method,returnformat:"json",target:target,title:title,type:type};
 				break;
+            case "cfmlref10":
+                method  = "loadpage";
+                url     = "com/navigation.cfc";
+                type    = "CFMLRef10";
+                params  = {method:method,returnformat:"json",target:target,title:title,type:type};
+                break;
 			case "developing": 
 				method	= "loadpage";
 				url		= "com/navigation.cfc";
@@ -367,6 +440,9 @@ Ext.define("Gloss.controller.Navigation", {
                 case "cfmlref":
                     type = 1;
                     break;
+                case "cfmlref10":
+                    type = 5;
+                    break;
                 case "library":
                     type = 3;
                     target = target.replace("cflib_lib_","");
@@ -414,6 +490,10 @@ Ext.define("Gloss.controller.Navigation", {
 				tree 	= this.getTree();
 				store  	= this.getNavigationStore().getRootNode();
 				break;
+            case "cfmlref10":
+                tree    = this.getCF10();
+                store   = this.getCF10Store().getRootNode();
+                break;
 			case "custom":
 				grid	= this.getCustomContentNav();
 				store	= this.getCustomContentStore();
@@ -478,6 +558,10 @@ Ext.define("Gloss.controller.Navigation", {
                     type = "cfmlref";
                     //target = target.replace(".html","")
                     break;
+                case "5":
+                    type = "cfmlref10";
+                    //target = target.replace(".html","")
+                    break;
                 case "2":
                     type = "custom";
                     target = "custom_content_"+target;
@@ -493,6 +577,11 @@ Ext.define("Gloss.controller.Navigation", {
             }
             if (type=="cfmlref") {
                 var store = this.getStore("Navigation").getRootNode();
+                var node = store.findChild("target",target,true);
+                var title = node.data.title;
+            }
+            if (type=="cfmlref10") {
+                var store = this.getStore("CF10").getRootNode();
                 var node = store.findChild("target",target,true);
                 var title = node.data.title;
             }

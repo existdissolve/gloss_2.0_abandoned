@@ -1,4 +1,4 @@
-Ext.define("Gloss.store.CF10", {
+Ext.define("Gloss.store.Navigation", {
     extend: "Ext.data.TreeStore",
 	autoLoad: true,
 	model:	"Gloss.model.Navigation",
@@ -8,6 +8,6 @@ Ext.define("Gloss.store.CF10", {
 	},
 	proxy:	{
 		type:	"ajax",
-		url: "nav_handler.cfm?type=cf10"
+		url: "nav_handler.cfm?type=regular"
 	}
 });

@@ -14,18 +14,20 @@ Ext.define("Gloss.controller.Comments", {
 		});
 		this.control({
             "maincontent": {
-				afterupdate: function(target,title) {
-					var me = this;
-					this.getcomments(target,title)
+				afterupdate: function(target,title,type) {
+					var me = this,
+                        version = type.toLowerCase()=='cfmlref' ? '9.0' : type.toLowerCase()=='cfmlref10' ? '10.0' : '0';
+					this.getcomments(target,title,version)
 				}
 			}
         });	
 	},
-	getcomments: function(target,title) {
+	getcomments: function(target,title,version) {
 		var store = this.getCommentsStore();
 		var params = store.getProxy().extraParams;
 		params.title = title;
 		params.target= target;
+        params.version = version;
 		store.load();
 	},
 	updatetitle: function(ct) {
